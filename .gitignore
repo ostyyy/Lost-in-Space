@@ -1,0 +1,45 @@
+# Build results
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+
+# Visual Studio
+.vs/
+
+# NuGet packages
+*.nupkg
+packages/
+*.snupkg
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# Database files 
+*.mdf
+*.ldf
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# JetBrains Rider
+.idea/
+
+# Publish output
+publish/
