@@ -13,5 +13,20 @@ namespace SpaceServer.Data
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Launches> Launches { get; set; }
         public DbSet<ImageOfTheDay> ImagesOfTheDay { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.ParentComment)
+                .WithMany(c => c.Replies)
+                .HasForeignKey(c => c.ParentCommentID)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<ImageOfTheDay>()
+                .HasIndex(img => img.Date)
+                .IsUnique();
+        }
     }
 }
