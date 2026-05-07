@@ -1,5 +1,6 @@
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
+using SpaceServer.Data;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,8 @@ var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
 
 var connectionString = $"Host={dbHost}; Database={dbName}; Username={dbUser}; Password={dbPassword};";
 
+builder.Services.AddDbContext<AppDB>(options =>
+    options.UseNpgsql(connectionString));
 
 // Add services to the container.
 builder.Services.AddControllers();
