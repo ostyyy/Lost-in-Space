@@ -1,0 +1,9 @@
+@SpaceServer_HostAddress = http://localhost:5232
+
+POST {{SpaceServer_HostAddress}}/api/users/register
+Content-Type: application/json
+
+{
+  "login": "joseph",
+  "password": "nig"
+}

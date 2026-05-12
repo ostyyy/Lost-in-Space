@@ -15,20 +15,24 @@ namespace SpaceServer.Controllers
         {
             _context = context;
         }
-
+        public class RegisterRequest
+        {
+            public string Login { get; set; } = string.Empty;
+            public string Password { get; set; } = string.Empty;
+        }
         [HttpPost("register")]
-        public IActionResult Register(string login, string password)
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
             var newUser = new User
             {
-                Login = login,
-                Password = password
+                Login = request.Login,
+                Password = request.Password
             };
 
             _context.Users.Add(newUser);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
-            return Ok($"Added {login}!");
+            return Ok($"Added {request.Login}!");
         }
     }
 }
