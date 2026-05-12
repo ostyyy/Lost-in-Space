@@ -1,0 +1,19 @@
+﻿@base_url = https://localhost:7230
+
+GET {{base_url}}/api/launches
+
+
+
+POST {{base_url}}/api/launches
+Content-Type: application/json
+
+{
+  "launchName": "Falcon Heavy",
+  "launchDate": "2026-05-12T16:30:00Z",
+  "launchProvider": "SpaceX",
+  "status": "Scheduled",
+  "launchLocation": "Florida"
+}
+
+
+DELETE {{base_url}}/api/launches/1
