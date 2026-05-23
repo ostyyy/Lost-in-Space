@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SpaceClient.View"
         xmlns:viewmodels="clr-namespace:SpaceClient.ViewModels"
         mc:Ignorable="d"
-        Title="Lost in Space - Sign Up" Height="450" Width="800"
+        Title="Lost in Space - Sign Up" Height="800" Width="800"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
         Background="#0A0D1A">
 
@@ -14,43 +14,97 @@
         <viewmodels:RegisterViewModel />
     </Window.DataContext>
 
-    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-        <StackPanel Width="350">
+    <Grid>
 
-            <TextBlock Text="LOST IN SPACE" FontSize="26" FontWeight="Black" Foreground="White" Margin="0,0,0,5" HorizontalAlignment="Center"/>
+        <Image HorizontalAlignment="Left" Height="368" Margin="0,650,0,0" VerticalAlignment="Top" Width="600" Source="/Pictures/background.png" Opacity="0.6"/>
 
-            <TextBlock Text="Create your account" FontSize="14" Foreground="#FF7190BD" Margin="0,0,0,25" HorizontalAlignment="Center"/>
+        <Image HorizontalAlignment="Left" Height="368" Margin="605,650,0,0" VerticalAlignment="Top" Width="600" Source="/Pictures/background.png" Opacity="0.6"/>
 
-            <TextBlock Text="Login:" Foreground="White" Margin="0,0,0,5" FontSize="14"/>
-            <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" 
-                     Height="35" Foreground="White" BorderBrush="#3E3E42" 
-                     VerticalContentAlignment="Center" Padding="5,0" Margin="0,0,0,15" Background="#FF172543"/>
+        <Image HorizontalAlignment="Left" Height="368" Margin="570,323,0,0" VerticalAlignment="Top" Width="600" Source="/Pictures/background.png" Opacity="0.6"/>
 
-            <TextBlock Text="Password:" Foreground="White" Margin="0,0,0,5" FontSize="14"/>
-            <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" 
-                     Height="35" Background="#FF172543" Foreground="White" BorderBrush="#3E3E42" 
-                     VerticalContentAlignment="Center" Padding="5,0" Margin="0,0,0,20"/>
+        <Image HorizontalAlignment="Left" Height="368" Margin="471,-9,0,0" VerticalAlignment="Top" Width="600" Source="/Pictures/background.png" Opacity="0.6"/>
 
-            <Button Content="Sign Up" Command="{Binding RegisterCommand}" 
-                    Height="40" Foreground="White" FontSize="14" FontWeight="Bold" Cursor="Hand" Margin="0,0,0,15">
-                <Button.Background>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FF7D44E6" Offset="1"/>
-                        <GradientStop Color="#FFCA81F5" Offset="0"/>
-                    </RadialGradientBrush>
-                </Button.Background>
-            </Button>
+        <Image HorizontalAlignment="Left" Height="368" Margin="0,318,0,0" VerticalAlignment="Top" Width="600" Source="/Pictures/background.png" Opacity="0.6"/>
 
-            <TextBlock HorizontalAlignment="Center" FontSize="13" Margin="0,5,0,0">
-                <Run Text="Already have an account? " Foreground="#64748B"/>
-                <Hyperlink Foreground="#007ACC" Command="{Binding NavigateToLoginCommand}" TextDecorations="{x:Null}">
-                    <Bold>Sign In</Bold>
-                </Hyperlink>
-            </TextBlock>
+        <Image HorizontalAlignment="Left" Height="368" Margin="0,-14,0,0" VerticalAlignment="Top" Width="600" Source="/Pictures/background.png" Opacity="0.6"/>
 
-            <TextBlock Text="{Binding StatusMessage}" Foreground="{Binding StatusColor}" 
-                       FontSize="12" Margin="0,15,0,0" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+        <Border VerticalAlignment="Center" HorizontalAlignment="Center" 
+                Width="420" Padding="35,20,35,25" CornerRadius="12"
+                Background="#11162B" BorderBrush="#222C4E" BorderThickness="1.5">
 
-        </StackPanel>
+            <Border.Effect>
+                <DropShadowEffect Color="#FF7D44E6" BlurRadius="25" Opacity="0.25" ShadowDepth="0"/>
+            </Border.Effect>
+
+            <StackPanel>
+
+                <Image Source="/Pictures/Helmet.png" 
+                       Width="80" Height="80" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,0,0,10" 
+                       Stretch="Uniform"/>
+
+                <TextBlock Text="LOST IN SPACE" FontSize="24" FontWeight="Black" Foreground="White" Margin="0,0,0,3" HorizontalAlignment="Center"/>
+
+                <TextBlock Text="CREATE AN ACCOUNT" FontSize="10" FontWeight="Bold" Foreground="#FF7190BD" Margin="0,0,0,20" HorizontalAlignment="Center"/>
+
+                <TextBlock Text="LOGIN:" Foreground="#64748B" Margin="0,0,0,6" FontSize="10" FontWeight="Bold"/>
+                <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" 
+                         Height="35" Foreground="White" BorderBrush="#24335E" 
+                         VerticalContentAlignment="Center" Padding="10,0" Margin="0,0,0,15" Background="#FF0D162D">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="6"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+
+                <TextBlock Text="PASSWORD:" Foreground="#64748B" Margin="0,0,0,6" FontSize="10" FontWeight="Bold"/>
+                <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" 
+                         Height="35" Background="#FF0D162D" Foreground="White" BorderBrush="#24335E" 
+                         VerticalContentAlignment="Center" Padding="10,0" Margin="0,0,0,20">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="6"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+
+                <Button Content="SIGN UP" Command="{Binding RegisterCommand}" 
+                        Height="40" Foreground="White" FontSize="13" FontWeight="Bold" Cursor="Hand" Margin="0,0,0,15">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="6"/>
+                        </Style>
+                    </Button.Resources>
+                    <Button.Background>
+                        <RadialGradientBrush Center="0.5,0.5" RadiusX="0.7" RadiusY="0.7">
+                            <GradientStop Color="#FFCA81F5" Offset="0"/>
+                            <GradientStop Color="#FF7D44E6" Offset="1"/>
+                        </RadialGradientBrush>
+                    </Button.Background>
+                    <Button.Effect>
+                        <DropShadowEffect Color="#FF7D44E6" BlurRadius="15" Opacity="0.4" ShadowDepth="0"/>
+                    </Button.Effect>
+                </Button>
+
+                <TextBlock HorizontalAlignment="Center" FontSize="13" Margin="0,0,0,0"><Run Text="Already have an account? " Foreground="#64748B"/><Run Text=" "/><Hyperlink Foreground="#FFCA81F5" Command="{Binding NavigateToLoginCommand}" TextDecorations="{x:Null}"><Bold><Run Text="Sign In"/></Bold></Hyperlink></TextBlock>
+
+                <TextBlock Text="{Binding StatusMessage}" Foreground="{Binding StatusColor}" 
+                           FontSize="12" Margin="0,10,0,0" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+        <Image HorizontalAlignment="Left" Height="100" Margin="37,725,0,0" VerticalAlignment="Top" Width="100" Source="/Pictures/galaxy.png" Opacity="0.7"/>
+        <Image HorizontalAlignment="Left" Height="89" Margin="672,419,0,0" VerticalAlignment="Top" Width="118" Source="/Pictures/black-hole.png" Opacity="0.7"/>
+        <Image HorizontalAlignment="Left" Height="87" Margin="158,36,0,0" VerticalAlignment="Top" Width="66" Source="/Pictures/rocket.png" RenderTransformOrigin="0.5,0.5" Opacity="0.7">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="17.453"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
     </Grid>
 </Window>
