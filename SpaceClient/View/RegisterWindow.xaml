@@ -4,9 +4,53 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpaceClient.View"
+        xmlns:viewmodels="clr-namespace:SpaceClient.ViewModels"
         mc:Ignorable="d"
-        Title="RegisterWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Lost in Space - Sign Up" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        Background="#0A0D1A">
+
+    <Window.DataContext>
+        <viewmodels:RegisterViewModel />
+    </Window.DataContext>
+
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel Width="350">
+
+            <TextBlock Text="LOST IN SPACE" FontSize="26" FontWeight="Black" Foreground="White" Margin="0,0,0,5" HorizontalAlignment="Center"/>
+
+            <TextBlock Text="Create your account" FontSize="14" Foreground="#FF7190BD" Margin="0,0,0,25" HorizontalAlignment="Center"/>
+
+            <TextBlock Text="Login:" Foreground="White" Margin="0,0,0,5" FontSize="14"/>
+            <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" 
+                     Height="35" Foreground="White" BorderBrush="#3E3E42" 
+                     VerticalContentAlignment="Center" Padding="5,0" Margin="0,0,0,15" Background="#FF172543"/>
+
+            <TextBlock Text="Password:" Foreground="White" Margin="0,0,0,5" FontSize="14"/>
+            <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" 
+                     Height="35" Background="#FF172543" Foreground="White" BorderBrush="#3E3E42" 
+                     VerticalContentAlignment="Center" Padding="5,0" Margin="0,0,0,20"/>
+
+            <Button Content="Sign Up" Command="{Binding RegisterCommand}" 
+                    Height="40" Foreground="White" FontSize="14" FontWeight="Bold" Cursor="Hand" Margin="0,0,0,15">
+                <Button.Background>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FF7D44E6" Offset="1"/>
+                        <GradientStop Color="#FFCA81F5" Offset="0"/>
+                    </RadialGradientBrush>
+                </Button.Background>
+            </Button>
+
+            <TextBlock HorizontalAlignment="Center" FontSize="13" Margin="0,5,0,0">
+                <Run Text="Already have an account? " Foreground="#64748B"/>
+                <Hyperlink Foreground="#007ACC" Command="{Binding NavigateToLoginCommand}" TextDecorations="{x:Null}">
+                    <Bold>Sign In</Bold>
+                </Hyperlink>
+            </TextBlock>
+
+            <TextBlock Text="{Binding StatusMessage}" Foreground="{Binding StatusColor}" 
+                       FontSize="12" Margin="0,15,0,0" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+
+        </StackPanel>
     </Grid>
 </Window>

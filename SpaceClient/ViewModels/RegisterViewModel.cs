@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace SpaceClient.ViewModels
 {
-    internal class RegisterViewModel
+    public class RegisterViewModel : BaseViewModel
     {
     }
 }
