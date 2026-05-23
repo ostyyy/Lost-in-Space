@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Pictures\background.png" />
     <Resource Include="Pictures\ForumLogo.png" />
     <Resource Include="Pictures\Helmet.png" />
     <Resource Include="Pictures\ISS.png" />
