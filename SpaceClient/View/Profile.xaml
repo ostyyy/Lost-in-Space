@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SpaceClient.View"
         mc:Ignorable="d"
         Title="Profile" Height="450" Width="800">
-    <Grid Background="Black">
+    <Grid Background="#FF0A0D1A">
         <Image HorizontalAlignment="Left" Height="62" Margin="10,10,0,0" VerticalAlignment="Top" Width="64" Source="/Pictures/Helmet.png">
             <Image.OpacityMask>
                 <ImageBrush ImageSource="/Pictures/Helmet.png" Stretch="UniformToFill"/>
@@ -14,17 +14,17 @@
         </Image>
         <TextBlock HorizontalAlignment="Left" Margin="80,11,0,0" TextWrapping="Wrap" Text="WELCOME ABOARD," VerticalAlignment="Top" Foreground="White" Height="42" Width="280" FontSize="30" FontFamily="Bauhaus 93"/>
         <TextBlock HorizontalAlignment="Left" Margin="80,41,0,0" TextWrapping="Wrap" Text="nameblock" VerticalAlignment="Top" Foreground="White" Height="37" Width="263" FontSize="30" FontFamily="Bauhaus 93"/>
-        <Button Content="" HorizontalAlignment="Left" Margin="555,0,0,0" VerticalAlignment="Center" Height="80" Width="80">
+        <Button x:Name="ToISSbtn" Content="" HorizontalAlignment="Left" Margin="555,0,0,0" VerticalAlignment="Center" Height="80" Width="80">
             <Button.Background>
                 <ImageBrush Stretch="UniformToFill" ImageSource="/Pictures/ISS.png"/>
             </Button.Background>
         </Button>
-        <Button Content="" HorizontalAlignment="Left" Margin="156,0,0,0" VerticalAlignment="Center" Height="80" Width="80">
+        <Button x:Name="ToForumbtn" Content="" HorizontalAlignment="Left" Margin="156,0,0,0" VerticalAlignment="Center" Height="80" Width="80">
             <Button.Background>
                 <ImageBrush Stretch="UniformToFill" ImageSource="/Pictures/ForumLogo.png"/>
             </Button.Background>
         </Button>
-        <Button Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Height="80" Width="80">
+        <Button x:Name="ToImagesbtn" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Height="80" Width="80">
             <Button.Background>
                 <ImageBrush Stretch="UniformToFill" ImageSource="/Pictures/NASA.png"/>
             </Button.Background>
@@ -32,6 +32,90 @@
         <TextBlock HorizontalAlignment="Left" Margin="125,262,0,0" TextWrapping="Wrap" Text="Explore Forum" VerticalAlignment="Top" Foreground="White" Height="37" Width="142" FontSize="22" FontFamily="Bauhaus 93"/>
         <TextBlock HorizontalAlignment="Left" Margin="535,262,0,0" TextWrapping="Wrap" Text="ISS Tracking" VerticalAlignment="Top" Foreground="White" Height="37" Width="120" FontSize="22" FontFamily="Bauhaus 93"/>
         <TextBlock HorizontalAlignment="Left" Margin="360,262,0,0" TextWrapping="Wrap" Text="Image of the Day" VerticalAlignment="Top" Foreground="White" Height="80" Width="103" FontSize="22" FontFamily="Bauhaus 93"/>
+        <Button x:Name="Exitbtn" Content="Exit" HorizontalAlignment="Left" Margin="691,384,0,0" VerticalAlignment="Top" Height="27" Width="64" Background="#FFC00B0B" Click="Button_Click"/>
+        <Image HorizontalAlignment="Left" Height="61" Margin="7,279,0,0" VerticalAlignment="Top" Width="66" Source="/Pictures/stars.png" Opacity="0.6" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="12.413"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+            <Image.OpacityMask>
+                <ImageBrush ImageSource="/Pictures/stars.png" Stretch="UniformToFill"/>
+            </Image.OpacityMask>
+        </Image>
+        <Image HorizontalAlignment="Left" Height="78" Margin="69,332,0,0" VerticalAlignment="Top" Width="73" Source="/Pictures/stars.png" Opacity="0.6" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="12.413"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+            <Image.OpacityMask>
+                <ImageBrush ImageSource="/Pictures/stars.png" Stretch="UniformToFill"/>
+            </Image.OpacityMask>
+        </Image>
+        <Image HorizontalAlignment="Left" Height="77" Margin="16,339,0,0" VerticalAlignment="Top" Width="73" Source="/Pictures/stars.png" Opacity="0.6" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="12.413"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+            <Image.OpacityMask>
+                <ImageBrush ImageSource="/Pictures/stars.png" Stretch="UniformToFill"/>
+            </Image.OpacityMask>
+        </Image>
+        <Image HorizontalAlignment="Left" Height="61" Margin="671,-7,0,0" VerticalAlignment="Top" Width="66" Source="/Pictures/stars.png" Opacity="0.6" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="192.626"/>
+                    <TranslateTransform X="62.746" Y="86.9"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+            <Image.OpacityMask>
+                <ImageBrush ImageSource="/Pictures/stars.png" Stretch="UniformToFill"/>
+            </Image.OpacityMask>
+        </Image>
+        <Image HorizontalAlignment="Left" Height="78" Margin="733,46,0,0" VerticalAlignment="Top" Width="73" Source="/Pictures/stars.png" Opacity="0.6" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="192.626"/>
+                    <TranslateTransform X="-67.067" Y="-35.148"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+            <Image.OpacityMask>
+                <ImageBrush ImageSource="/Pictures/stars.png" Stretch="UniformToFill"/>
+            </Image.OpacityMask>
+        </Image>
+        <Image HorizontalAlignment="Left" Height="77" Margin="680,53,0,0" VerticalAlignment="Top" Width="73" Source="/Pictures/stars.png" Opacity="0.6" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="192.626"/>
+                    <TranslateTransform X="38.741" Y="-47.975"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+            <Image.OpacityMask>
+                <ImageBrush ImageSource="/Pictures/stars.png" Stretch="UniformToFill"/>
+            </Image.OpacityMask>
+        </Image>
+        <Image HorizontalAlignment="Left" Height="414" VerticalAlignment="Center" Width="842" Source="/Pictures/39-395128_star-png-monochrome.png" Margin="-10,0,0,0">
+            <Image.OpacityMask>
+                <ImageBrush ImageSource="/Pictures/39-395128_star-png-monochrome.png" Stretch="UniformToFill"/>
+            </Image.OpacityMask>
+        </Image>
 
     </Grid>
 </Window>

@@ -54,6 +54,7 @@
         </Image>
         <TextBlock HorizontalAlignment="Left" Margin="75,164,0,0" TextWrapping="Wrap" Text="Login:" VerticalAlignment="Top" Foreground="White" Height="22" Width="53" FontFamily="Bauhaus 93" FontSize="16"/>
         <TextBlock HorizontalAlignment="Left" Margin="75,233,0,0" TextWrapping="Wrap" Text="Password:" VerticalAlignment="Top" Foreground="White" Height="22" Width="75" FontFamily="Bauhaus 93" FontSize="16"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="62,348,0,0" VerticalAlignment="Top" Width="100"/>
 
     </Grid>
 </Window>

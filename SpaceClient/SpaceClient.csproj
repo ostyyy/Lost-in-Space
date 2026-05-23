@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Pictures\39-395128_star-png-monochrome.png" />
     <None Remove="Pictures\ForumLogo.png" />
     <None Remove="Pictures\Helmet.png" />
     <None Remove="Pictures\ISS.png" />
@@ -19,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Pictures\39-395128_star-png-monochrome.png" />
     <Resource Include="Pictures\ForumLogo.png" />
     <Resource Include="Pictures\Helmet.png" />
     <Resource Include="Pictures\ISS.png" />
