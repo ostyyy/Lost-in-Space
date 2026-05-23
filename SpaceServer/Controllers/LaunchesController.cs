@@ -42,7 +42,6 @@ namespace SpaceServer.Controllers
             _context.Launches.Add(launch);
             await _context.SaveChangesAsync();
 
-            // Повертає статус 201 Created і посилання на новий об'єкт
             return CreatedAtAction(nameof(GetLaunch), new { id = launch.Id }, launch);
         }
 
