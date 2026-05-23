@@ -14,9 +14,9 @@
         </Image>
         <TextBlock HorizontalAlignment="Left" Margin="80,43,0,0" TextWrapping="Wrap" Text="SPACE" VerticalAlignment="Top" Foreground="White" Height="50" Width="96" FontSize="32" FontFamily="Bauhaus 93"/>
         <TextBlock HorizontalAlignment="Left" Margin="80,11,0,0" TextWrapping="Wrap" Text="LOST IN" VerticalAlignment="Top" Foreground="White" Height="52" Width="106" FontSize="30" FontFamily="Bauhaus 93"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,187,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="150" Height="20"/>
-        <PasswordBox HorizontalAlignment="Center" Margin="0,256,0,0" VerticalAlignment="Top" Width="150" Height="20"/>
-        <Button Content="Explore! " HorizontalAlignment="Center" Margin="0,365,0,0" VerticalAlignment="Top" Width="176" Height="30" Background="White" RenderTransformOrigin="0.5,0.5">
+        <TextBox x:Name="LogInBox" HorizontalAlignment="Center" Margin="0,187,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Height="20"/>
+        <PasswordBox x:Name="LogInPassBox" HorizontalAlignment="Center" Margin="0,256,0,0" VerticalAlignment="Top" Width="150" Height="20"/>
+        <Button x:Name="LogInBut" Content="Explore! " HorizontalAlignment="Center" Margin="0,365,0,0" VerticalAlignment="Top" Width="176" Height="30" Background="White" RenderTransformOrigin="0.5,0.5">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

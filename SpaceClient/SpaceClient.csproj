@@ -9,13 +9,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Pictures\ForumLogo.png" />
+    <None Remove="Pictures\Helmet.png" />
+    <None Remove="Pictures\ISS.png" />
     <None Remove="Pictures\Logo.png" />
+    <None Remove="Pictures\NASA.png" />
     <None Remove="Pictures\planet.png" />
     <None Remove="Pictures\stars.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Pictures\ForumLogo.png" />
+    <Resource Include="Pictures\Helmet.png" />
+    <Resource Include="Pictures\ISS.png" />
     <Resource Include="Pictures\Logo.png" />
+    <Resource Include="Pictures\NASA.png" />
     <Resource Include="Pictures\planet.png" />
     <Resource Include="Pictures\stars.png" />
   </ItemGroup>
