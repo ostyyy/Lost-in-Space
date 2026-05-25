@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SpaceServer.Data;
 using SpaceServer.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SpaceServer.Controllers
 {
@@ -33,6 +34,23 @@ namespace SpaceServer.Controllers
             await _context.SaveChangesAsync();
 
             return Ok($"Added {request.Login}!");
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] RegisterRequest request)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u =>
+                u.Login == request.Login &&
+                u.Password == request.Password);
+
+            if (user != null)
+            {
+                return Ok($"Welcome aboard, {user.Login}!");
+            }
+            else
+            {
+                return Unauthorized("Incorrect login or password!");
+            }
         }
     }
 }

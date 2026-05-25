@@ -30,6 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNetEnv" Version="3.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Pictures\black-hole.png" />
     <Resource Include="Pictures\galaxy.png" />
   </ItemGroup>
@@ -52,6 +56,12 @@
     <Resource Include="Pictures\ufo (1).png" />
     <Resource Include="Pictures\ufo (2).png" />
     <Resource Include="Pictures\ufo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update=".env">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

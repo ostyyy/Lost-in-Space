@@ -20,6 +20,7 @@ namespace SpaceClient
         public LogIn()
         {
             InitializeComponent();
+            this.DataContext = new ViewModels.LoginViewModel();
         }
 
         private void GoToRegister_Click(object sender, RoutedEventArgs e)
@@ -31,5 +32,7 @@ namespace SpaceClient
 
             this.Close();
         }
+
+        
     }
 }

@@ -69,8 +69,10 @@
                     </PasswordBox.Resources>
                 </PasswordBox>
 
-                <Button x:Name="LogInBut" Content="EXPLORE!" Command="{Binding LoginCommand}" 
-                        Height="40" Foreground="White" FontSize="14" FontWeight="Bold" Cursor="Hand" Margin="0,0,0,20">
+                <Button x:Name="LogInBut" Content="EXPLORE!" 
+        Command="{Binding LoginCommand}" 
+        CommandParameter="{Binding ElementName=LogInPassBox}"
+        Height="40" Foreground="White" FontSize="14" FontWeight="Bold" Cursor="Hand" Margin="0,0,0,20">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="6"/>
