@@ -41,7 +41,11 @@
         <TextBlock HorizontalAlignment="Left" Margin="125,54,0,0" TextWrapping="Wrap" Text="Explore Forum" VerticalAlignment="Top" Foreground="White" Height="37" Width="142" FontSize="22" FontFamily="Bauhaus 93" Grid.Row="1"/>
         <TextBlock HorizontalAlignment="Left" Margin="535,54,0,0" TextWrapping="Wrap" Text="ISS Tracking" VerticalAlignment="Top" Foreground="White" Height="37" Width="120" FontSize="22" FontFamily="Bauhaus 93" Grid.Row="1"/>
         <TextBlock HorizontalAlignment="Left" Margin="360,54,0,0" TextWrapping="Wrap" Text="Image of the Day" VerticalAlignment="Top" Foreground="White" Height="80" Width="103" FontSize="22" FontFamily="Bauhaus 93" Grid.Row="1"/>
-        <Button x:Name="Exitbtn" Content="Exit" HorizontalAlignment="Left" Margin="691,176,0,0" VerticalAlignment="Top" Height="27" Width="64" Background="#FFC00B0B" Click="Button_Click" Grid.Row="1"/>
+        <Button x:Name="Exitbtn" Content="" HorizontalAlignment="Left" Margin="691,140,0,0" VerticalAlignment="Top" Height="63" Width="64" Click="Button_Click" Grid.Row="1">
+            <Button.Background>
+                <ImageBrush Stretch="UniformToFill" ImageSource="/Pictures/Landing.png"/>
+            </Button.Background>
+        </Button>
         <Image HorizontalAlignment="Left" Height="61" Margin="7,71,0,0" VerticalAlignment="Top" Width="66" Source="/Pictures/stars.png" Opacity="0.6" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
             <Image.RenderTransform>
                 <TransformGroup>
@@ -120,6 +124,7 @@
                 <ImageBrush ImageSource="/Pictures/stars.png" Stretch="UniformToFill"/>
             </Image.OpacityMask>
         </Image>
+        <TextBlock HorizontalAlignment="Left" Margin="691,194,0,0" TextWrapping="Wrap" Text="Go back" VerticalAlignment="Top" Foreground="#FFF30000" Height="32" Width="68" FontSize="16" FontFamily="Bauhaus 93" Grid.Row="1"/>
 
     </Grid>
 </Window>

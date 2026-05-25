@@ -5,56 +5,99 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpaceClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="300">
-    <Grid Background="Black">
-        <Image HorizontalAlignment="Left" Height="65" Margin="10,10,0,0" VerticalAlignment="Top" Width="65" Source="/Pictures/Logo.png">
-            <Image.OpacityMask>
-                <ImageBrush Stretch="UniformToFill" ImageSource="/Pictures/Logo.png"/>
-            </Image.OpacityMask>
-        </Image>
-        <TextBlock HorizontalAlignment="Left" Margin="80,43,0,0" TextWrapping="Wrap" Text="SPACE" VerticalAlignment="Top" Foreground="White" Height="50" Width="96" FontSize="32" FontFamily="Bauhaus 93"/>
-        <TextBlock HorizontalAlignment="Left" Margin="80,11,0,0" TextWrapping="Wrap" Text="LOST IN" VerticalAlignment="Top" Foreground="White" Height="52" Width="106" FontSize="30" FontFamily="Bauhaus 93"/>
-        <TextBox x:Name="LogInBox" HorizontalAlignment="Center" Margin="0,187,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Height="20"/>
-        <PasswordBox x:Name="LogInPassBox" HorizontalAlignment="Center" Margin="0,256,0,0" VerticalAlignment="Top" Width="150" Height="20"/>
-        <Button x:Name="LogInBut" Content="Explore! " HorizontalAlignment="Center" Margin="0,365,0,0" VerticalAlignment="Top" Width="176" Height="30" Background="White" RenderTransformOrigin="0.5,0.5">
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Button.RenderTransform>
-        </Button>
-        <Image HorizontalAlignment="Left" Height="145" Margin="-3,286,0,0" VerticalAlignment="Top" Width="141" Source="/Pictures/stars.png" Opacity="0.6" RenderTransformOrigin="0.5,0.5">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="12.413"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Image.RenderTransform>
-            <Image.OpacityMask>
-                <ImageBrush ImageSource="/Pictures/stars.png" Stretch="UniformToFill"/>
-            </Image.OpacityMask>
-        </Image>
-        <Image HorizontalAlignment="Left" Height="83" Margin="205,123,0,0" VerticalAlignment="Top" Width="105" Source="/Pictures/stars.png" Opacity="0.6" RenderTransformOrigin="0.5,0.5">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="209.492"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Image.RenderTransform>
-            <Image.OpacityMask>
-                <ImageBrush ImageSource="/Pictures/stars.png" Stretch="UniformToFill"/>
-            </Image.OpacityMask>
-        </Image>
-        <TextBlock HorizontalAlignment="Left" Margin="75,164,0,0" TextWrapping="Wrap" Text="Login:" VerticalAlignment="Top" Foreground="White" Height="22" Width="53" FontFamily="Bauhaus 93" FontSize="16"/>
-        <TextBlock HorizontalAlignment="Left" Margin="75,233,0,0" TextWrapping="Wrap" Text="Password:" VerticalAlignment="Top" Foreground="White" Height="22" Width="75" FontFamily="Bauhaus 93" FontSize="16"/>
-        <Image HorizontalAlignment="Left" Height="100" Margin="62,348,0,0" VerticalAlignment="Top" Width="100"/>
+        Title="Lost in Space - Sign In" Height="800" Width="800"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        Background="#0A0D1A">
 
+    <Grid>
+        <Image HorizontalAlignment="Left" Height="368" Margin="0,650,0,0" VerticalAlignment="Top" Width="600" Source="/Pictures/background.png" Opacity="0.6"/>
+        <Image HorizontalAlignment="Left" Height="368" Margin="605,650,0,0" VerticalAlignment="Top" Width="600" Source="/Pictures/background.png" Opacity="0.6"/>
+        <Image HorizontalAlignment="Left" Height="368" Margin="570,323,0,0" VerticalAlignment="Top" Width="600" Source="/Pictures/background.png" Opacity="0.6"/>
+        <Image HorizontalAlignment="Left" Height="368" Margin="471,-9,0,0" VerticalAlignment="Top" Width="600" Source="/Pictures/background.png" Opacity="0.6"/>
+        <Image HorizontalAlignment="Left" Height="368" Margin="0,318,0,0" VerticalAlignment="Top" Width="600" Source="/Pictures/background.png" Opacity="0.6"/>
+        <Image HorizontalAlignment="Left" Height="368" Margin="0,-14,0,0" VerticalAlignment="Top" Width="600" Source="/Pictures/background.png" Opacity="0.6"/>
+
+        <Image HorizontalAlignment="Left" Height="145" Margin="70,120,0,0" VerticalAlignment="Top" Width="141" Source="/Pictures/stars.png" Opacity="0.3" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <RotateTransform Angle="12.413"/>
+            </Image.RenderTransform>
+        </Image>
+        <Image HorizontalAlignment="Right" Height="120" Margin="0,550,100,0" VerticalAlignment="Top" Width="150" Source="/Pictures/stars.png" Opacity="0.2" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <RotateTransform Angle="209.492"/>
+            </Image.RenderTransform>
+        </Image>
+
+        <Border VerticalAlignment="Center" HorizontalAlignment="Center" 
+                Width="420" Padding="35,40,35,40" CornerRadius="12"
+                Background="#11162B" BorderBrush="#222C4E" BorderThickness="1.5">
+
+            <Border.Effect>
+                <DropShadowEffect Color="#FF7D44E6" BlurRadius="25" Opacity="0.25" ShadowDepth="0"/>
+            </Border.Effect>
+
+            <StackPanel>
+                <Image Source="/Pictures/Logo.png" 
+                       Width="75" Height="75" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,0,0,15" 
+                       Stretch="Uniform"/>
+
+                <TextBlock Text="LOST IN SPACE" FontSize="24" FontWeight="Black" Foreground="White" Margin="0,0,0,3" HorizontalAlignment="Center"/>
+
+                <TextBlock Text="SIGN IN TO EXPLORE" FontSize="10" FontWeight="Bold" Foreground="#FF7190BD" Margin="0,0,0,25" HorizontalAlignment="Center"/>
+
+                <TextBlock Text="LOGIN:" Foreground="#64748B" Margin="0,0,0,6" FontSize="10" FontWeight="Bold"/>
+                <TextBox x:Name="LogInBox" Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" 
+                         Height="35" Foreground="White" BorderBrush="#24335E" 
+                         VerticalContentAlignment="Center" Padding="10,0" Margin="0,0,0,15" Background="#FF0D162D">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="6"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+
+                <TextBlock Text="PASSWORD:" Foreground="#64748B" Margin="0,0,0,6" FontSize="10" FontWeight="Bold"/>
+                <PasswordBox x:Name="LogInPassBox" 
+                             Height="35" Background="#FF0D162D" Foreground="White" BorderBrush="#24335E" 
+                             VerticalContentAlignment="Center" Padding="10,0" Margin="0,0,0,25">
+                    <PasswordBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="6"/>
+                        </Style>
+                    </PasswordBox.Resources>
+                </PasswordBox>
+
+                <Button x:Name="LogInBut" Content="EXPLORE!" Command="{Binding LoginCommand}" 
+                        Height="40" Foreground="White" FontSize="14" FontWeight="Bold" Cursor="Hand" Margin="0,0,0,20">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="6"/>
+                        </Style>
+                    </Button.Resources>
+                    <Button.Background>
+                        <RadialGradientBrush Center="0.5,0.5" RadiusX="0.7" RadiusY="0.7">
+                            <GradientStop Color="#FFCA81F5" Offset="0"/>
+                            <GradientStop Color="#FF7D44E6" Offset="1"/>
+                        </RadialGradientBrush>
+                    </Button.Background>
+                    <Button.Effect>
+                        <DropShadowEffect Color="#FF7D44E6" BlurRadius="15" Opacity="0.4" ShadowDepth="0"/>
+                    </Button.Effect>
+                </Button>
+
+                <TextBlock HorizontalAlignment="Center" FontSize="13">
+                    <Run Text="New to the universe?" Foreground="#64748B"/>
+                    <Run Text=" "/>
+                    <Hyperlink Foreground="#FFCA81F5" Command="{Binding NavigateToRegisterCommand}" TextDecorations="{x:Null}">
+                        <Bold><Run Text="Sign Up"/></Bold>
+                    </Hyperlink>
+                </TextBlock>
+
+                <TextBlock Text="{Binding StatusMessage}" Foreground="#FFEF4444" 
+                           FontSize="12" Margin="0,15,0,0" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>
