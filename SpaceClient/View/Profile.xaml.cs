@@ -36,7 +36,7 @@ namespace SpaceClient.View
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow loginWindow = new MainWindow();
+            LogIn loginWindow = new LogIn();
 
             loginWindow.Show();
 
