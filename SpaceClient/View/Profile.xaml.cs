@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SpaceClient.View;
 
 namespace SpaceClient.View
 {
@@ -24,9 +25,22 @@ namespace SpaceClient.View
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ToForumbtn_Click(object sender, RoutedEventArgs e)
         {
+            Forum forumWindow = new Forum();
 
+            forumWindow.Show();
+
+            this.Close();
+        }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow loginWindow = new MainWindow();
+
+            loginWindow.Show();
+
+            this.Close();
         }
     }
 }

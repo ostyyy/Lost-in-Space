@@ -90,7 +90,7 @@
                 <TextBlock HorizontalAlignment="Center" FontSize="13">
                     <Run Text="New to the universe?" Foreground="#64748B"/>
                     <Run Text=" "/>
-                    <Hyperlink Foreground="#FFCA81F5" Command="{Binding NavigateToRegisterCommand}" TextDecorations="{x:Null}">
+                    <Hyperlink Foreground="#FFCA81F5" Click="GoToRegister_Click" TextDecorations="{x:Null}">
                         <Bold><Run Text="Sign Up"/></Bold>
                     </Hyperlink>
                 </TextBlock>

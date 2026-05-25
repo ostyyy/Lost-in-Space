@@ -9,14 +9,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Pictures\black-hole.png" />
     <None Remove="Pictures\ForumLogo.png" />
+    <None Remove="Pictures\galaxy.png" />
     <None Remove="Pictures\Helmet.png" />
     <None Remove="Pictures\ISS.png" />
     <None Remove="Pictures\Landing.png" />
     <None Remove="Pictures\Logo.png" />
+    <None Remove="Pictures\mars.png" />
     <None Remove="Pictures\NASA.png" />
     <None Remove="Pictures\planet.png" />
+    <None Remove="Pictures\rocket.png" />
+    <None Remove="Pictures\satellite.png" />
+    <None Remove="Pictures\sparkling.png" />
     <None Remove="Pictures\stars.png" />
+    <None Remove="Pictures\stars1.png" />
+    <None Remove="Pictures\ufo %281%29.png" />
+    <None Remove="Pictures\ufo %282%29.png" />
+    <None Remove="Pictures\ufo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Pictures\black-hole.png" />
+    <Resource Include="Pictures\galaxy.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,9 +41,17 @@
     <Resource Include="Pictures\ISS.png" />
     <Resource Include="Pictures\Landing.png" />
     <Resource Include="Pictures\Logo.png" />
+    <Resource Include="Pictures\mars.png" />
     <Resource Include="Pictures\NASA.png" />
     <Resource Include="Pictures\planet.png" />
+    <Resource Include="Pictures\rocket.png" />
+    <Resource Include="Pictures\satellite.png" />
+    <Resource Include="Pictures\sparkling.png" />
     <Resource Include="Pictures\stars.png" />
+    <Resource Include="Pictures\stars1.png" />
+    <Resource Include="Pictures\ufo (1).png" />
+    <Resource Include="Pictures\ufo (2).png" />
+    <Resource Include="Pictures\ufo.png" />
   </ItemGroup>
 
 </Project>

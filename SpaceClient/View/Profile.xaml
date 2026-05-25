@@ -28,7 +28,7 @@
                 <ImageBrush Stretch="UniformToFill" ImageSource="/Pictures/ISS.png"/>
             </Button.Background>
         </Button>
-        <Button x:Name="ToForumbtn" Content="" HorizontalAlignment="Left" Margin="156,177,0,0" VerticalAlignment="Top" Height="80" Width="80" Grid.RowSpan="2">
+        <Button x:Name="ToForumbtn" Content="" HorizontalAlignment="Left" Margin="156,177,0,0" VerticalAlignment="Top" Height="80" Width="80" Grid.RowSpan="2" Click="ToForumbtn_Click">
             <Button.Background>
                 <ImageBrush Stretch="UniformToFill" ImageSource="/Pictures/ForumLogo.png"/>
             </Button.Background>
@@ -41,7 +41,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="125,54,0,0" TextWrapping="Wrap" Text="Explore Forum" VerticalAlignment="Top" Foreground="White" Height="37" Width="142" FontSize="22" FontFamily="Bauhaus 93" Grid.Row="1"/>
         <TextBlock HorizontalAlignment="Left" Margin="535,54,0,0" TextWrapping="Wrap" Text="ISS Tracking" VerticalAlignment="Top" Foreground="White" Height="37" Width="120" FontSize="22" FontFamily="Bauhaus 93" Grid.Row="1"/>
         <TextBlock HorizontalAlignment="Left" Margin="360,54,0,0" TextWrapping="Wrap" Text="Image of the Day" VerticalAlignment="Top" Foreground="White" Height="80" Width="103" FontSize="22" FontFamily="Bauhaus 93" Grid.Row="1"/>
-        <Button x:Name="Exitbtn" Content="" HorizontalAlignment="Left" Margin="691,140,0,0" VerticalAlignment="Top" Height="63" Width="64" Click="Button_Click" Grid.Row="1">
+        <Button x:Name="Exitbtn" Content="" HorizontalAlignment="Left" Margin="691,140,0,0" VerticalAlignment="Top" Height="63" Width="64" Click="ExitButton_Click" Grid.Row="1">
             <Button.Background>
                 <ImageBrush Stretch="UniformToFill" ImageSource="/Pictures/Landing.png"/>
             </Button.Background>

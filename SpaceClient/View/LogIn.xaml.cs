@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SpaceClient.View;
 
 namespace SpaceClient
 {
@@ -19,6 +20,16 @@ namespace SpaceClient
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void GoToRegister_Click(object sender, RoutedEventArgs e)
+        {
+           
+            RegisterWindow regWindow = new RegisterWindow();
+
+            regWindow.Show();
+
+            this.Close();
         }
     }
 }
