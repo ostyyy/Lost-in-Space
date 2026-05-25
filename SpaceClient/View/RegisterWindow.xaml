@@ -57,26 +57,28 @@
                 </TextBox>
 
                 <TextBlock Text="PASSWORD:" Foreground="#64748B" Margin="0,0,0,6" FontSize="10" FontWeight="Bold"/>
-                <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" 
+                <PasswordBox x:Name="TxtPassword"
+                         PasswordChanged="PasswordBox_PasswordChanged"
                          Height="35" Background="#FF0D162D" Foreground="White" BorderBrush="#24335E" 
-                         VerticalContentAlignment="Center" Padding="10,0" Margin="0,0,0,20">
-                    <TextBox.Resources>
+                         VerticalContentAlignment="Center" Padding="10,0" Margin="0,0,0,15">        
+                    <PasswordBox.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="6"/>
                         </Style>
-                    </TextBox.Resources>
-                </TextBox>
+                    </PasswordBox.Resources>
+                </PasswordBox>
 
                 <TextBlock Text="CONFIRM PASSWORD:" Foreground="#64748B" Margin="0,0,0,6" FontSize="10" FontWeight="Bold"/>
-                <TextBox Text="{Binding ConfirmPassword, UpdateSourceTrigger=PropertyChanged}" 
+                <PasswordBox x:Name="TxtConfirmPassword"
+                         PasswordChanged="ConfirmPasswordBox_PasswordChanged"
                          Height="35" Background="#FF0D162D" Foreground="White" BorderBrush="#24335E" 
-                         VerticalContentAlignment="Center" Padding="10,0" Margin="0,0,0,20">
-                    <TextBox.Resources>
+                         VerticalContentAlignment="Center" Padding="10,0" Margin="0,0,0,20">    
+                    <PasswordBox.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="6"/>
                         </Style>
-                    </TextBox.Resources>
-                </TextBox>
+                    </PasswordBox.Resources>
+                </PasswordBox>
 
                 <Button Content="SIGN UP" Command="{Binding RegisterCommand}" 
                         Height="40" Foreground="White" FontSize="13" FontWeight="Bold" Cursor="Hand" Margin="0,0,0,15">
