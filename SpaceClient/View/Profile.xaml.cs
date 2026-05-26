@@ -42,5 +42,16 @@ namespace SpaceClient.View
 
             this.Close();
         }
+
+        private void ToISSbtn_Click(object sender, RoutedEventArgs e)
+        {
+            string htmlFilePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ISS/ISS_map.html");
+
+            // Даем Windows команду открыть этот файл в браузере по умолчанию (Chrome, Edge и тд)
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(htmlFilePath)
+            {
+                UseShellExecute = true
+            });
+        }
     }
 }
