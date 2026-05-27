@@ -1,0 +1,21 @@
+﻿body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #0A0D1A;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+
+.iss-icon {
+    background-image: url('ISS.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 15px #FFEF4444;
+}
+

@@ -42,7 +42,9 @@
     <Resource Include="Pictures\background.png" />
     <Resource Include="Pictures\ForumLogo.png" />
     <Resource Include="Pictures\Helmet.png" />
-    <Resource Include="Pictures\ISS.png" />
+    <Resource Include="Pictures\ISS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Pictures\Landing.png" />
     <Resource Include="Pictures\Logo.png" />
     <Resource Include="Pictures\mars.png" />
@@ -63,6 +65,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="ISS\ISS_map.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ISS\script.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ISS\style.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
