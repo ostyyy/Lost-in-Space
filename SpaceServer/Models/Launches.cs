@@ -22,5 +22,8 @@ namespace SpaceServer.Models
 
         [Column("launchlocation")]
         public string LaunchLocation { get; set; } = string.Empty;
+
+        [Column("userid")]
+        public int UserId { get; set; }
     }
 }
