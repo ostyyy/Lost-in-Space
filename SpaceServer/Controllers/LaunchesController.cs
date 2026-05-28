@@ -5,6 +5,13 @@ using SpaceServer.Models;
 
 namespace SpaceServer.Controllers
 {
+
+    public class FavoritesRequest
+    {
+        public string UserLogin { get; set; } = string.Empty;
+        public Launches LaunchData { get; set; }
+    }
+
     [Route("api/[controller]")]
     [ApiController]
     public class LaunchesController : ControllerBase
@@ -14,6 +21,39 @@ namespace SpaceServer.Controllers
         public LaunchesController(AppDB context)
         {
             _context = context;
+        }
+
+        [HttpPost("favorites")]
+        public async Task<IActionResult> FavotiteLaunch([FromBody] FavoritesRequest request)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Login == request.UserLogin);
+
+            if (user == null)
+            {
+                return BadRequest("Error no such user!");
+            }
+
+            var newLaunch = request.LaunchData;
+            newLaunch.UserId = user.Id;
+
+            _context.Launches.Add(newLaunch);
+            await _context.SaveChangesAsync();
+
+            return Ok("Added!");
+        }
+
+        [HttpGet("my/{login}")]
+        public async Task<ActionResult<IEnumerable<Launches>>> GetMyLaunches(string login)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Login == login);
+            if (user == null)
+            {
+                return BadRequest("Error no such user!");
+            }
+
+            var myLaunches = await _context.Launches.Where(l => l.UserId == user.Id).ToListAsync();
+
+            return myLaunches;
         }
 
         [HttpGet]

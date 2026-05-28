@@ -92,7 +92,7 @@ namespace SpaceClient.ViewModels
 
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        Profile profileWindow = new Profile();
+                        NavigationWindow profileWindow = new NavigationWindow();
                         profileWindow.Show();
 
                         foreach (Window window in Application.Current.Windows)
