@@ -1,32 +1,54 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Class="SpaceClient.View.NavigationWindow"
+        xmlns:av="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        mc:Ignorable="av" x:Class="SpaceClient.View.NavigationWindow"
         Title="Space Command Center" Height="650" Width="1050"
         WindowStartupLocation="CenterScreen" Background="#FF060B19">
 
     <Window.Resources>
         <Style x:Key="NavButtonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#FF111B33"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#FF1E0F45"/>
+            <Setter Property="Foreground" Value="#FFAECFFF"/>
+            <Setter Property="BorderBrush" Value="#FF3F1975"/>
+            <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontFamily" Value="Bauhaus 93"/>
             <Setter Property="Height" Value="50"/>
             <Setter Property="Margin" Value="0,0,0,12"/>
             <Setter Property="Cursor" Value="Hand"/>
+
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="8" Color="Black" Opacity="0.4" ShadowDepth="2"/>
+                </Setter.Value>
+            </Setter>
+
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="10" BorderBrush="#FF24335E" BorderThickness="1">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="10" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#FFCA81F5"/>
-                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="Background" Value="#FF4A208C"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="BorderBrush" Value="#FFFD71CB"/>
+
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#FFFD71CB" BlurRadius="10" ShadowDepth="0" Opacity="0.8"/>
+                        </Setter.Value>
+                    </Setter>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -59,70 +81,26 @@
                 </Grid>
 
                 <StackPanel Grid.Row="1" VerticalAlignment="Top" Margin="0,20,0,0">
-                    <Button Content="MY PROFILE" Style="{StaticResource NavButtonStyle}" Click="ToProfile_Click" Background="#FF172D5F"/>
+                    <Button Content="MY PROFILE" Style="{StaticResource NavButtonStyle}" Click="ToProfile_Click"/>
                     <Button Content="SPACE FORUM" Style="{StaticResource NavButtonStyle}" Click="ToForum_Click"/>
-                    <Button Content="LAUNCHES" Style="{StaticResource NavButtonStyle}" Click="ToProfile_Click" Background="#FF172D5F"/>
+                    <Button Content="LAUNCHES" Style="{StaticResource NavButtonStyle}" Click="ToProfile_Click"/>
                     <Button Content="PHOTO OF THE DAY" Style="{StaticResource NavButtonStyle}" Click="ToImages_Click"/>
-                    <Button Content="ISS TRACKING" Style="{StaticResource NavButtonStyle}" Click="ToISS_Click" Background="#FF172D5F"/>
+                    <Button Content="ISS TRACKING" Style="{StaticResource NavButtonStyle}" Click="ToISS_Click"/>
                 </StackPanel>
 
-                <Button Grid.Row="2" Content="LANDING (EXIT)" 
-        Foreground="#FFFD71CB" Click="Exit_Click"
-        Height="50" Margin="0,0,0,12" Cursor="Hand" FontFamily="Bauhaus 93" FontSize="14">
-
+                <Button Grid.Row="2" Content="LANDING (EXIT)" Style="{StaticResource NavButtonStyle}" Click="Exit_Click" Foreground="#FFFD71CB">
                     <Button.OpacityMask>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="Black"/>
                             <GradientStop Color="White" Offset="1"/>
                         </LinearGradientBrush>
                     </Button.OpacityMask>
-
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#FF1E0F45"/>
-                            <Setter Property="BorderBrush" Value="#FF3F1975"/>
-                            <Setter Property="BorderThickness" Value="2"/>
-
-                            <Setter Property="Effect">
-                                <Setter.Value>
-                                    <DropShadowEffect BlurRadius="8" Color="Black" Opacity="0.4" ShadowDepth="2"/>
-                                </Setter.Value>
-                            </Setter>
-
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="10" 
-                                BorderBrush="{TemplateBinding BorderBrush}" 
-                                BorderThickness="{TemplateBinding BorderThickness}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF4A208C"/>
-                                    <Setter Property="Foreground" Value="White"/>
-
-                                    <Setter Property="Effect">
-                                        <Setter.Value>
-                                            <DropShadowEffect Color="#FFFD71CB" BlurRadius="8" ShadowDepth="0" Opacity="0.7"/>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
                 </Button>
             </Grid>
         </Border>
 
         <Grid Grid.Column="1">
-
-            <Image Source="/Pictures/background.png" Stretch="UniformToFill" Opacity="0.3" Margin="-4,-9,5,0" RenderTransformOrigin="0.5,0.5">
+            <Image Source="/Pictures/background.png" Stretch="UniformToFill" Opacity="0.3" Margin="0" RenderTransformOrigin="0.5,0.5">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
