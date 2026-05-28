@@ -1,13 +1,21 @@
 ﻿using SpaceClient.View;
+using System.IO;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using DotNetEnv;
 
 
 namespace SpaceClient.ViewModels
 {
     public class RegisterViewModel : BaseViewModel
     {
+
+        
+
         private string _login;
         private string _password;
         private string _confirmPassword;
@@ -82,7 +90,7 @@ namespace SpaceClient.ViewModels
             return true;
         }
 
-        private void ExecuteRegister(object parameter)
+        private async void ExecuteRegister(object parameter)
         {
             if (string.IsNullOrWhiteSpace(Login) || string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(ConfirmPassword))
             {
@@ -98,8 +106,28 @@ namespace SpaceClient.ViewModels
                 return;
             }
 
-            
-           
+            try
+            {
+                DotNetEnv.Env.Load();
+
+                string baseUrl = DotNetEnv.Env.GetString("API_BASE_URL");
+
+                string url = $"{baseUrl.TrimEnd('/')}/api/users/register";
+
+                var registerData = new { Login = Login, Password = Password };
+                string jsonPayload = JsonSerializer.Serialize(registerData);
+                var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.PostAsync(url, content);
+                }
+            }
+            catch (Exception ex)
+            {
+                StatusColor = Brushes.Crimson;
+                StatusMessage = $"ERROR: {ex.InnerException?.Message ?? ex.Message}";
+            }
 
         }
 
