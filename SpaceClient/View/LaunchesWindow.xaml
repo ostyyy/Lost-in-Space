@@ -5,8 +5,153 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpaceClient.View"
         mc:Ignorable="d"
-        Title="LaunchesWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Space Launches Archive" Height="650" Width="900"
+        WindowStartupLocation="CenterScreen" Background="#FF060B19">
+
+    <Window.Resources>
+        <Style x:Key="NavButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FF1E0F45"/>
+            <Setter Property="Foreground" Value="#FFAECFFF"/>
+            <Setter Property="BorderBrush" Value="#FF3F1975"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Bauhaus 93"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="8" Color="Black" Opacity="0.4" ShadowDepth="2"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="10" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF4A208C"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="BorderBrush" Value="#FFFD71CB"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#FFFD71CB" BlurRadius="10" ShadowDepth="0" Opacity="0.8"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="30">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Image Grid.RowSpan="3" Source="/Pictures/background.png" Stretch="UniformToFill" Opacity="0.3" Margin="0" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="-1">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.794"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <StackPanel Grid.Row="0" Margin="0,0,0,20">
+            <TextBlock Text="SPACE LAUNCHES ARCHIVE" Foreground="#FFFD71CB" 
+                       FontSize="28" FontFamily="Bauhaus 93" Margin="0,0,0,15">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFFD71CB" BlurRadius="10" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                         Background="#FF0D162D" Foreground="White" BorderBrush="#FF3F1975"
+                         Padding="10,5" FontSize="16" VerticalContentAlignment="Center" Height="45">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="8"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+
+                <Button Grid.Column="1" Content="EXPLORE" Margin="15,0,0,0"
+                        Width="150" Height="45" Click="SearchButton_Click"
+                        Style="{StaticResource NavButtonStyle}"/>
+
+                <Button Grid.Column="2" Content="MY FAVORITES" Margin="15,0,0,0"
+                        Width="150" Height="45" Click="ViewArchiveButton_Click"
+                        Style="{StaticResource NavButtonStyle}" Foreground="#FFF2C12E"/>
+            </Grid>
+        </StackPanel>
+
+        <Border Grid.Row="1" Background="#AA0D162D" CornerRadius="12" 
+                BorderBrush="#FF1E2947" BorderThickness="2">
+
+            <DataGrid ItemsSource="{Binding AvailableLaunches}" 
+                      SelectedItem="{Binding SelectedLaunch}"
+                      AutoGenerateColumns="False" Background="Transparent" 
+                      Foreground="White" BorderThickness="0" GridLinesVisibility="None"
+                      RowBackground="Transparent" CanUserAddRows="False" SelectionMode="Single">
+
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#FF1E0F45"/>
+                        <Setter Property="Foreground" Value="#FFAECFFF"/>
+                        <Setter Property="Padding" Value="10,8"/>
+                        <Setter Property="FontFamily" Value="Bauhaus 93"/>
+                        <Setter Property="FontSize" Value="14"/>
+                    </Style>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Padding" Value="10"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                    <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#33FD71CB"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="MISSION NAME" Binding="{Binding LaunchName}" Width="2*"/>
+                    <DataGridTextColumn Header="PROVIDER" Binding="{Binding LaunchProvider}" Width="1*"/>
+                    <DataGridTextColumn Header="STATUS" Binding="{Binding Status}" Width="1*"/>
+                    <DataGridTextColumn Header="LOCATION" Binding="{Binding LaunchLocation}" Width="1.5*"/>
+                    <DataGridTextColumn Header="DATE" Binding="{Binding LaunchDate, StringFormat={}{0:dd.MM.yyyy}}" Width="1*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <Button Grid.Row="2" Content="ADD SELECTED TO FAVORITES" 
+                Margin="0,20,0,0" Height="55" Click="SaveButton_Click"
+                Style="{StaticResource NavButtonStyle}" Foreground="#FFFD71CB"/>
     </Grid>
 </Window>

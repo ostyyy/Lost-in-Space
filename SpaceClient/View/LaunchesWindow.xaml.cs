@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SpaceClient.ViewModels;
 
 namespace SpaceClient.View
 {
@@ -19,9 +20,27 @@ namespace SpaceClient.View
     /// </summary>
     public partial class LaunchesWindow : Window
     {
+        public LaunchesViewModel ViewModel { get; set; }
         public LaunchesWindow()
         {
             InitializeComponent();
+            ViewModel = new LaunchesViewModel();
+            this.DataContext = ViewModel;
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private async void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.LoadFromAPI();
+        }
+
+        private async void ViewArchiveButton_Click(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.saveToDB();
         }
     }
 }

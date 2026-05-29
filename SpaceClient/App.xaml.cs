@@ -9,6 +9,7 @@ namespace SpaceClient
     /// </summary>
     public partial class App : Application
     {
+        public static string CurrentUserLogin { get; set; } = string.Empty;
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);

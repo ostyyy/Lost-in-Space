@@ -35,6 +35,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SpaceServer\SpaceServer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Pictures\black-hole.png" />
     <Resource Include="Pictures\galaxy.png" />
   </ItemGroup>
