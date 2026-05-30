@@ -12,7 +12,7 @@ namespace SpaceServer.Data
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Launches> Launches { get; set; }
-        public DbSet<ImageOfTheDay> ImagesOfTheDay { get; set; }
+        public DbSet<APOD> ImagesOfTheDay { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace SpaceServer.Data
                 .HasForeignKey(c => c.ParentCommentID)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<ImageOfTheDay>()
+            modelBuilder.Entity<APOD>()
                 .HasIndex(img => img.Date)
                 .IsUnique();
         }

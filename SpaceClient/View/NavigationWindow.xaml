@@ -103,26 +103,19 @@
             <Image Source="/Pictures/background.png" Stretch="UniformToFill" Opacity="0.3" Margin="0" RenderTransformOrigin="0.5,0.5">
                 <Image.RenderTransform>
                     <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
                         <RotateTransform Angle="-0.794"/>
-                        <TranslateTransform/>
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>
 
-            <Button x:Name="BtnOpenSidebar" Content="☰ MENU" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                    Margin="15" Width="90" Height="35" Visibility="Collapsed"
-                    Background="#FF0D162D" Foreground="White" BorderBrush="#FF24335E" 
-                    FontFamily="Bauhaus 93" FontSize="12" Cursor="Hand" Click="ToggleSidebar_Click">
-                <Button.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="6"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
 
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button x:Name="BtnOpenSidebar" Content="☰ MENU" HorizontalAlignment="Left" VerticalAlignment="Top" 
+            Margin="15" Width="90" Height="35" Visibility="Collapsed"
+            Background="#FF0D162D" Foreground="White" BorderBrush="#FF24335E" 
+            FontFamily="Bauhaus 93" FontSize="12" Cursor="Hand" Click="ToggleSidebar_Click"/>
         </Grid>
+
+
     </Grid>
 </Window>
