@@ -12,8 +12,8 @@
 
         <StackPanel Grid.Row="0" Margin="0,0,0,15">
             <TextBlock x:Name="TxtTitle" Text="LOADING TELEMETRY..." 
-                       Foreground="#FFCA81F5" FontSize="22" FontFamily="Bauhaus 93" 
-                       HorizontalAlignment="Center"/>
+                       Foreground="#FFFD71CB" FontSize="22" FontFamily="Verdana" 
+                       HorizontalAlignment="Center" FontWeight="Bold"/>
 
             <TextBlock x:Name="TxtDate" Text="--.--.----" 
                        Foreground="#FF64748B" FontSize="13" FontFamily="Consolas" 
@@ -58,9 +58,9 @@
             <Border Grid.Column="1" Background="#CC0D162D" BorderBrush="#FF1E2947" BorderThickness="1" CornerRadius="10" Padding="15">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
-                        <TextBlock Text="MISSION LOG / EXPLANATION" Foreground="#FFFD71CB" FontSize="14" FontFamily="Consolas" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <TextBlock Text="MISSION LOG / EXPLANATION" Foreground="#FFFD71CB" FontSize="17" FontFamily="Consolas" FontWeight="Bold" Margin="0,0,0,10"/>
                         <Rectangle Height="1" Fill="#FF24335E" Margin="0,0,0,10"/>
-                        <TextBlock x:Name="TxtExplanation" Text="..." Foreground="#FFAECFFF" FontSize="13" FontFamily="Consolas" TextWrapping="Wrap" LineHeight="18"/>
+                        <TextBlock x:Name="TxtExplanation" Text="..." Foreground="#FFAECFFF" FontSize="17" FontFamily="Consolas" TextWrapping="Wrap" LineHeight="18"/>
                     </StackPanel>
                 </ScrollViewer>
             </Border>
