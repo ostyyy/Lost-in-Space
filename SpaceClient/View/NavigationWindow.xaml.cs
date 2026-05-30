@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Media;
+
 
 namespace SpaceClient.View
 {
@@ -8,10 +10,39 @@ namespace SpaceClient.View
     /// </summary>
     public partial class NavigationWindow : Window
     {
+
+        private MediaPlayer _backgroundPlayer = new MediaPlayer();
         public NavigationWindow()
         {
             InitializeComponent();
 
+            StartBackgroundMusic();
+
+        }
+
+
+        private void StartBackgroundMusic()
+        {
+            try
+            {
+                string musicPath = @"D:\uni_projects\SpaceApp\SpaceApp\SpaceClient\music\Space.mp3";
+
+                _backgroundPlayer.Open(new Uri(musicPath, UriKind.Absolute));
+
+                _backgroundPlayer.Volume = 0.3;
+
+                _backgroundPlayer.MediaEnded += (sender, e) =>
+                {
+                    _backgroundPlayer.Position = TimeSpan.Zero; 
+                    _backgroundPlayer.Play();
+                };
+
+                _backgroundPlayer.Play();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error playing background music: {ex.Message}");
+            }
         }
 
         private void ToggleSidebar_Click(object sender, RoutedEventArgs e)
@@ -38,6 +69,8 @@ namespace SpaceClient.View
 
         private void ToImages_Click(object sender, RoutedEventArgs e)
         {
+            APODWindow apodPage = new APODWindow();
+            MainFrame.Navigate(apodPage);
         }
 
         private void ToISS_Click(object sender, RoutedEventArgs e)
@@ -46,6 +79,9 @@ namespace SpaceClient.View
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
+            _backgroundPlayer.Stop();
+            _backgroundPlayer.Close();
+
             this.Close();
         }
     }
