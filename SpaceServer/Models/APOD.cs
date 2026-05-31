@@ -8,6 +8,9 @@ namespace SpaceServer.Models
         [Column("id")]
         public int Id { get; set; }
 
+        [Column("user_id")]
+        public int UserId { get; set; }
+
         [Column("date")]
         public DateTime Date { get; set; }
 
@@ -19,5 +22,6 @@ namespace SpaceServer.Models
 
         [Column("imageurl")]
         public string ImageURL { get; set; } = string.Empty;
+
     }
 }
