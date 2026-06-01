@@ -84,5 +84,11 @@ namespace SpaceClient.View
 
             this.Close();
         }
+
+        private void ToLaunches_Click(object sender, RoutedEventArgs e)
+        {
+            LaunchesWindow launchPage = new LaunchesWindow();
+            MainFrame.Navigate(launchPage);
+        }
     }
 }

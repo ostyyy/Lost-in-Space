@@ -100,7 +100,7 @@ namespace SpaceClient.ViewModels
         {
             try
             {
-                string API_URL = "https://ll.thespacedevs.com/2.3.0/launches/?format=json";
+                string API_URL = "https://ll.thespacedevs.com/2.3.0/launches/?format=json&limit=100";
 
                 if (!string.IsNullOrWhiteSpace(SearchText))
                 {
@@ -134,7 +134,7 @@ namespace SpaceClient.ViewModels
                     DateTime? parsedDateTime = null;
                     if (DateTime.TryParse(result["net"]?.ToString(), out DateTime date))
                     {
-                        parsedDateTime = date;
+                        parsedDateTime = date.ToUniversalTime();
                     }
 
                     var launches = new Launches

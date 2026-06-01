@@ -83,7 +83,7 @@
                 <StackPanel Grid.Row="1" VerticalAlignment="Top" Margin="0,20,0,0">
                     <Button Content="MY PROFILE" Style="{StaticResource NavButtonStyle}" Click="ToProfile_Click"/>
                     <Button Content="SPACE FORUM" Style="{StaticResource NavButtonStyle}" Click="ToForum_Click"/>
-                    <Button Content="LAUNCHES" Style="{StaticResource NavButtonStyle}" Click="ToProfile_Click"/>
+                    <Button Content="LAUNCHES" Style="{StaticResource NavButtonStyle}" Click="ToLaunches_Click"/>
                     <Button Content="PHOTO OF THE DAY" Style="{StaticResource NavButtonStyle}" Click="ToImages_Click"/>
                     <Button Content="ISS TRACKING" Style="{StaticResource NavButtonStyle}" Click="ToISS_Click"/>
                 </StackPanel>

@@ -18,7 +18,7 @@ namespace SpaceClient.View
     /// <summary>
     /// Логика взаимодействия для LaunchesWindow.xaml
     /// </summary>
-    public partial class LaunchesWindow : Window
+    public partial class LaunchesWindow : Page
     {
         public LaunchesViewModel ViewModel { get; set; }
         public LaunchesWindow()
@@ -45,6 +45,11 @@ namespace SpaceClient.View
             BtnAddFavorite.Visibility = Visibility.Collapsed;
             BtnRemoveFavorite.Visibility = Visibility.Visible;
             await ViewModel.LoadFavorites();
+        }
+
+        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.DeleteFromFavorites();
         }
     }
 }

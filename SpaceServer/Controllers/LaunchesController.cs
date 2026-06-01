@@ -37,7 +37,16 @@ namespace SpaceServer.Controllers
             newLaunch.UserId = user.Id;
 
             _context.Launches.Add(newLaunch);
+
+            if (request.LaunchData.LaunchDate.HasValue)
+            {
+                request.LaunchData.LaunchDate = request.LaunchData.LaunchDate.Value.ToUniversalTime();
+            }
+
+            _context.Launches.Add(request.LaunchData);
             await _context.SaveChangesAsync();
+
+            
 
             return Ok("Added!");
         }
