@@ -25,7 +25,6 @@ namespace SpaceClient.ViewModels
         }
 
         private string _statusMessage = string.Empty;
-
         public string StatusMessage
         {
             get => _statusMessage;
@@ -83,12 +82,27 @@ namespace SpaceClient.ViewModels
                 }
 
                 string apiUrl = $"{baseUrl}/api/users/login";
-
                 var response = await client.PostAsync(apiUrl, content);
 
                 if (response.IsSuccessStatusCode)
                 {
                     StatusMessage = "Entering!";
+
+                    string responseData = await response.Content.ReadAsStringAsync();
+
+                    using (JsonDocument doc = JsonDocument.Parse(responseData))
+                    {
+                        JsonElement root = doc.RootElement;
+
+                        if (root.TryGetProperty("id", out var idProp))
+                        {
+                            App.CurrentUserId = idProp.GetInt32();
+                        }
+                        if (root.TryGetProperty("login", out var loginProp))
+                        {
+                            App.CurrentUserLogin = loginProp.GetString() ?? this.Login;
+                        }
+                    }
 
                     Application.Current.Dispatcher.Invoke(() =>
                     {

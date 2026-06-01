@@ -45,11 +45,15 @@ namespace SpaceServer.Controllers
 
             if (user != null)
             {
-                return Ok($"Welcome aboard, {user.Login}!");
+                return Ok(new
+                {
+                    id = user.Id,
+                    login = user.Login
+                });
             }
             else
             {
-                return Unauthorized("Incorrect login or password!");
+                return Unauthorized(new { message = "Incorrect login or password!" });
             }
         }
     }

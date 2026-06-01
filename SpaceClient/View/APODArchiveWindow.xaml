@@ -1,0 +1,81 @@
+﻿<Window x:Class="SpaceClient.View.APODArchiveWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Personal Space Telemetry Archive" Height="650" Width="1000"
+        WindowStartupLocation="CenterScreen" Background="#FF060B19" Foreground="White">
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Margin="0,0,10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="SAVED ASTRONOMY PHOTOS" Foreground="#FFFD71CB" 
+                       FontSize="16" FontFamily="Consolas" FontWeight="Bold" Margin="0,0,0,10"/>
+
+            <ListBox Grid.Row="1" ItemsSource="{Binding ArchivedItems}" 
+                     SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                     Background="#FF0D162D" BorderBrush="#FF24335E" BorderThickness="2" Foreground="White">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="#FF1E2947" BorderThickness="0,0,0,1" Padding="8" Margin="0,2">
+                            <StackPanel>
+                                <TextBlock Text="{Binding DateString}" Foreground="#FF64748B" FontSize="11" FontFamily="Consolas"/>
+                                <TextBlock Text="{Binding Title}" Foreground="#FFAECFFF" FontSize="13" FontWeight="Bold" TextTrimming="CharacterEllipsis"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+
+        <Grid Grid.Column="1" Margin="10,0,0,0">
+
+            <TextBlock Text="SELECT AN ENTRY FROM THE LOG TO PREVIEW" 
+                       Foreground="#FF64748B" FontFamily="Consolas" FontSize="14"
+                       HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedItem}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+            <Grid Visibility="{Binding IsDetailsVisible}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="0,0,0,10">
+                    <TextBlock Text="{Binding SelectedItem.Title}" Foreground="#FFFD71CB" FontSize="20" FontFamily="Bauhaus 93" FontWeight="Bold" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding SelectedItem.DateString}" Foreground="#FF64748B" FontSize="12" FontFamily="Consolas" Margin="0,3,0,0"/>
+                </StackPanel>
+
+                <Border Grid.Row="1" BorderBrush="#FF24335E" BorderThickness="1" CornerRadius="8" Background="#FF0D162D" Margin="0,0,0,10">
+                    <Image Source="{Binding SelectedItem.ImageURL}" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                </Border>
+
+                <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Background="#CC0D162D" Padding="10" Margin="0,0,0,10">
+                    <TextBlock Text="{Binding SelectedItem.Explanation}" Foreground="#FFAECFFF" FontSize="14" FontFamily="Consolas" TextWrapping="Wrap" LineHeight="18"/>
+                </ScrollViewer>
+
+                <Button Grid.Row="3" Content="❌ DELETE FROM ARCHIVE" Command="{Binding DeleteItemCommand}" Height="35"
+                        Background="#FF0D162D" Foreground="#FFFF5A5A" BorderBrush="#FF24335E"
+                        FontFamily="Consolas" FontSize="12" FontWeight="Bold" Cursor="Hand"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

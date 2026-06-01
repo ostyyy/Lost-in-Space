@@ -11,35 +11,41 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Margin="0,0,0,15">
-            <TextBlock x:Name="TxtTitle" Text="LOADING TELEMETRY..." 
-                       Foreground="#FFFD71CB" FontSize="22" FontFamily="Verdana" 
+            <TextBlock Text="{Binding Title, TargetNullValue='LOADING TELEMETRY...'}" 
+                       Foreground="#FFFD71CB" FontSize="22" FontFamily="Bauhaus 93" 
                        HorizontalAlignment="Center" FontWeight="Bold"/>
 
-            <TextBlock x:Name="TxtDate" Text="--.--.----" 
+            <TextBlock Text="{Binding Date, TargetNullValue='--.--.----'}" 
                        Foreground="#FF64748B" FontSize="13" FontFamily="Consolas" 
                        HorizontalAlignment="Center" Margin="0,5,0,0"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
             <TextBlock Text="FROM:" Foreground="#FFAECFFF" FontFamily="Consolas" VerticalAlignment="Center" Margin="0,0,5,0"/>
-            <DatePicker x:Name="DpStart" Width="120" Height="30" VerticalAlignment="Center" Background="#FF0D162D" BorderBrush="#FF24335E"/>
+            <DatePicker SelectedDate="{Binding DpStart, Mode=TwoWay}" Width="120" Height="30" VerticalAlignment="Center" Background="#FF0D162D" BorderBrush="#FF24335E"/>
 
             <TextBlock Text="TO:" Foreground="#FFAECFFF" FontFamily="Consolas" VerticalAlignment="Center" Margin="10,0,5,0"/>
-            <DatePicker x:Name="DpEnd" Width="120" Height="30" VerticalAlignment="Center" Background="#FF0D162D" BorderBrush="#FF24335E"/>
+            <DatePicker SelectedDate="{Binding DpEnd, Mode=TwoWay}" Width="120" Height="30" VerticalAlignment="Center" Background="#FF0D162D" BorderBrush="#FF24335E"/>
 
-            <Button Content="SEARCH" Width="100" Height="30" Margin="15,0,5,0" 
+            <Button Content="SEARCH" Command="{Binding SearchRangeCommand}" Width="100" Height="30" Margin="15,0,5,0" 
                     Background="#FF0D162D" Foreground="White" BorderBrush="#FF24335E"
-                    FontFamily="Consolas" FontSize="11" FontWeight="Bold" Cursor="Hand" Click="BtnSearchRange_Click"/>
+                    FontFamily="Consolas" FontSize="11" FontWeight="Bold" Cursor="Hand"/>
 
-            <Button Content="RANDOM" Width="80" Height="30" Margin="5,0,15,0" 
+            <Button Content="RANDOM" Command="{Binding RandomCommand}" Width="80" Height="30" Margin="5,0,5,0" 
                     Background="#FF0D162D" Foreground="White" BorderBrush="#FF24335E"
-                    FontFamily="Consolas" FontSize="11" FontWeight="Bold" Cursor="Hand" Click="BtnRandom_Click"/>
+                    FontFamily="Consolas" FontSize="11" FontWeight="Bold" Cursor="Hand"/>
 
-            <Button x:Name="BtnPrev" Content="◀" Width="35" Height="30" Margin="5,0" IsEnabled="False"
-                    Background="#FF0D162D" Foreground="White" BorderBrush="#FF24335E" FontFamily="Consolas" Click="BtnPrev_Click"/>
-            <TextBlock x:Name="TxtPages" Text="0/0" Foreground="#FFAECFFF" FontFamily="Consolas" VerticalAlignment="Center" Margin="5,0"/>
-            <Button x:Name="BtnNext" Content="▶" Width="35" Height="30" Margin="5,0" IsEnabled="False"
-                    Background="#FF0D162D" Foreground="White" BorderBrush="#FF24335E" FontFamily="Consolas" Click="BtnNext_Click"/>
+            <Button Content="📁 MY ARCHIVE" Command="{Binding OpenArchiveCommand}" Width="110" Height="30" Margin="5,0,15,0" 
+                    Background="#FF0D162D" Foreground="#FFCA81F5" BorderBrush="#FF24335E"
+                    FontFamily="Consolas" FontSize="11" FontWeight="Bold" Cursor="Hand"/>
+
+            <Button Content="◀" Command="{Binding PrevCommand}" IsEnabled="{Binding IsPrevEnabled}" Width="35" Height="30" Margin="5,0"
+                    Background="#FF0D162D" Foreground="White" BorderBrush="#FF24335E" FontFamily="Consolas"/>
+
+            <TextBlock Text="{Binding PagesText, TargetNullValue='0/0'}" Foreground="#FFAECFFF" FontFamily="Consolas" VerticalAlignment="Center" Margin="5,0"/>
+
+            <Button Content="▶" Command="{Binding NextCommand}" IsEnabled="{Binding IsNextEnabled}" Width="35" Height="30" Margin="5,0"
+                    Background="#FF0D162D" Foreground="White" BorderBrush="#FF24335E" FontFamily="Consolas"/>
         </StackPanel>
 
         <Grid Grid.Row="2">
@@ -50,19 +56,42 @@
 
             <Border Grid.Column="0" BorderBrush="#FF24335E" BorderThickness="2" CornerRadius="10" Margin="0,0,15,0" Background="#FF0D162D">
                 <Grid>
-                    <TextBlock x:Name="TxtLoading" Text="RECEIVING DATA FROM NASA..." Foreground="#FFAECFFF" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Consolas"/>
-                    <Image x:Name="ImgApod" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <TextBlock Text="{Binding LoadingStatus, TargetNullValue='RECEIVING DATA FROM NASA...'}" 
+                               Foreground="#FFAECFFF" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Consolas">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsImgVisible}" Value="True">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <Image Source="{Binding ImageURL}" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality"/>
                 </Grid>
             </Border>
 
             <Border Grid.Column="1" Background="#CC0D162D" BorderBrush="#FF1E2947" BorderThickness="1" CornerRadius="10" Padding="15">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
-                        <TextBlock Text="MISSION LOG / EXPLANATION" Foreground="#FFFD71CB" FontSize="17" FontFamily="Consolas" FontWeight="Bold" Margin="0,0,0,10"/>
-                        <Rectangle Height="1" Fill="#FF24335E" Margin="0,0,0,10"/>
-                        <TextBlock x:Name="TxtExplanation" Text="..." Foreground="#FFAECFFF" FontSize="17" FontFamily="Consolas" TextWrapping="Wrap" LineHeight="18"/>
-                    </StackPanel>
-                </ScrollViewer>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" Margin="0,0,0,10">
+                        <StackPanel>
+                            <TextBlock Text="MISSION LOG / EXPLANATION" Foreground="#FFFD71CB" FontSize="17" FontFamily="Consolas" FontWeight="Bold" Margin="0,0,0,10"/>
+                            <Rectangle Height="1" Fill="#FF24335E" Margin="0,0,0,10"/>
+                            <TextBlock Text="{Binding Explanation, TargetNullValue='...'}" Foreground="#FFAECFFF" FontSize="17" FontFamily="Consolas" TextWrapping="Wrap" LineHeight="18"/>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <Button Grid.Row="1" Content="💾 SAVE TO LOG" Command="{Binding SaveToArchiveCommand}" Height="35" 
+                            Background="#FF0D162D" Foreground="#FFFD71CB" BorderBrush="#FF24335E"
+                            FontFamily="Consolas" FontSize="12" FontWeight="Bold" Cursor="Hand"/>
+                </Grid>
             </Border>
         </Grid>
     </Grid>

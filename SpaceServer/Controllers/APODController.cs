@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using SpaceServer.Data;
 using SpaceServer.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace SpaceServer.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/APOD")]
     public class APODController : ControllerBase
     {
         private readonly AppDB _context;
@@ -29,6 +30,8 @@ namespace SpaceServer.Controllers
         [HttpPost("add")]
         public async Task<IActionResult> AddImage([FromBody] AddImageRequest request)
         {
+            DateTime pureUtcDate = DateTime.SpecifyKind(request.Date.Date, DateTimeKind.Utc);
+
             bool userExists = await _context.Users.AnyAsync(u => u.Id == request.UserId);
             if (!userExists)
             {
@@ -36,7 +39,7 @@ namespace SpaceServer.Controllers
             }
 
             bool alreadyExists = await _context.ImagesOfTheDay
-                 .AnyAsync(i => i.Date.Date == request.Date.Date && i.UserId == request.UserId);
+                 .AnyAsync(i => i.Date == pureUtcDate && i.UserId == request.UserId);
 
             if (alreadyExists)
             {
@@ -46,7 +49,7 @@ namespace SpaceServer.Controllers
             var newImage = new APOD
             {
                 UserId = request.UserId,
-                Date = request.Date.ToUniversalTime(),
+                Date = pureUtcDate, 
                 Title = request.Title,
                 Explanation = request.Explanation,
                 ImageURL = request.ImageURL
@@ -56,20 +59,38 @@ namespace SpaceServer.Controllers
             await _context.SaveChangesAsync();
 
             return Ok("Saved to DB");
-
         }
 
 
-        [HttpGet("my-archive/{userId}")]
+        [HttpGet("user/{userId}")]
         public async Task<IActionResult> GetUserArchive(int userId)
         {
-            var userImages = await _context.ImagesOfTheDay
-                .Where(i => i.UserId == userId) 
-                .OrderByDescending(i => i.Date)
-                .ToListAsync();
+            try
+            {
+                var rawArchive = await _context.ImagesOfTheDay
+                    .Where(i => i.UserId == userId)
+                    .OrderByDescending(i => i.Date)
+                    .ToListAsync(); 
 
-            return Ok(userImages);
+                var clientFriendlyResult = rawArchive.Select(i => new
+                {
+                    id = i.Id,
+                    userId = i.UserId,
+                    date = i.Date,
+                    title = i.Title,
+                    explanation = i.Explanation,
+                    imageURL = i.ImageURL
+                }).ToList();
+
+                return Ok(clientFriendlyResult);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ERROR IN ARCHIVE]: {ex.Message}");
+                return StatusCode(500, "Internal server error during archive extraction");
+            }
         }
+
         [HttpDelete("delete/{id}/{userId}")]
         public async Task<IActionResult> DeleteImage(int id, int userId)
         {

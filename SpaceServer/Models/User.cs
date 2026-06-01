@@ -16,5 +16,6 @@ namespace SpaceServer.Models
 
         public List<Topic> Topics { get; set; } = new List<Topic>();
         public List<Post> Posts { get; set; } = new List<Post>();
+        public List<APOD> SavedApods { get; set; } = new List<APOD>();
     }
 }
