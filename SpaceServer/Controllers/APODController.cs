@@ -61,34 +61,25 @@ namespace SpaceServer.Controllers
             return Ok("Saved to DB");
         }
 
-
         [HttpGet("user/{userId}")]
         public async Task<IActionResult> GetUserArchive(int userId)
         {
-            try
-            {
-                var rawArchive = await _context.ImagesOfTheDay
-                    .Where(i => i.UserId == userId)
-                    .OrderByDescending(i => i.Date)
-                    .ToListAsync(); 
+            var archive = await _context.ImagesOfTheDay
+                .Where(i => i.UserId == userId) 
+                .OrderByDescending(i => i.Date)
+                .ToListAsync();
 
-                var clientFriendlyResult = rawArchive.Select(i => new
-                {
-                    id = i.Id,
-                    userId = i.UserId,
-                    date = i.Date,
-                    title = i.Title,
-                    explanation = i.Explanation,
-                    imageURL = i.ImageURL
-                }).ToList();
-
-                return Ok(clientFriendlyResult);
-            }
-            catch (Exception ex)
+            var clientFriendlyResult = archive.Select(i => new
             {
-                Console.WriteLine($"[ERROR IN ARCHIVE]: {ex.Message}");
-                return StatusCode(500, "Internal server error during archive extraction");
-            }
+                id = i.Id,
+                userId = i.UserId,
+                date = i.Date,
+                title = i.Title,
+                explanation = i.Explanation,
+                imageURL = i.ImageURL
+            }).ToList();
+
+            return Ok(clientFriendlyResult);
         }
 
         [HttpDelete("delete/{id}/{userId}")]
