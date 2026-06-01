@@ -28,19 +28,23 @@ namespace SpaceClient.View
             this.DataContext = ViewModel;
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-
+            await ViewModel.saveToDB();
         }
 
         private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
+            BtnAddFavorite.Visibility = Visibility.Visible;
+            BtnRemoveFavorite.Visibility = Visibility.Collapsed;
             await ViewModel.LoadFromAPI();
         }
 
         private async void ViewArchiveButton_Click(object sender, RoutedEventArgs e)
         {
-            await ViewModel.saveToDB();
+            BtnAddFavorite.Visibility = Visibility.Collapsed;
+            BtnRemoveFavorite.Visibility = Visibility.Visible;
+            await ViewModel.LoadFavorites();
         }
     }
 }

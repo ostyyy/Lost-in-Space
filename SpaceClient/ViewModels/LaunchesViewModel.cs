@@ -22,7 +22,13 @@ namespace SpaceClient.ViewModels
     public class LaunchesViewModel : INotifyPropertyChanged
     {
         private readonly HttpClient _httpClient = new HttpClient();
-        
+
+        private readonly string _baseUrl;
+
+        public LaunchesViewModel()
+        {
+            _baseUrl = Environment.GetEnvironmentVariable("API_BASE_URL") ?? "http://localhost:5232";
+        }
 
         private ObservableCollection<Launches> _availableLaunches = new();
         public ObservableCollection<Launches> AvailableLaunches
@@ -56,8 +62,40 @@ namespace SpaceClient.ViewModels
                 OnPropertyChanged();
             }
         }
-        
 
+        public async Task DeleteFromFavorites()
+        {
+            if (SelectedLaunch == null)
+            {
+                return;
+            }
+
+            if (SelectedLaunch.Id == 0)
+            {
+                MessageBox.Show("Error! Not in Favorites!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            try
+            {
+                string apiUrl = $"{_baseUrl}/api/launches/{SelectedLaunch.Id}";
+
+                var response = await _httpClient.DeleteAsync(apiUrl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    AvailableLaunches.Remove(SelectedLaunch);
+                }
+                else
+                {
+                    MessageBox.Show("Something went wrong!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error! {ex}");
+            }
+        }
         public async Task LoadFromAPI()
         {
             try
@@ -117,6 +155,41 @@ namespace SpaceClient.ViewModels
             }
         }
 
+        public async Task LoadFavorites()
+        {
+            try
+            {
+                string apiUrl = $"{_baseUrl}/api/launches/my/{App.CurrentUserLogin}";
+                var response = await _httpClient.GetAsync(apiUrl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+
+                    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                    var mySavedLaunches = JsonSerializer.Deserialize<List<Launches>>(jsonString, options);
+
+                    AvailableLaunches.Clear();
+
+                    if (mySavedLaunches != null)
+                    {
+                        foreach (var launch in mySavedLaunches)
+                        {
+                            AvailableLaunches.Add(launch);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Failed to load favorites from server.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error {ex}");
+            }
+        }
         public async Task saveToDB()
         {
             if (SelectedLaunch == null)
@@ -135,8 +208,7 @@ namespace SpaceClient.ViewModels
 
             try
             {
-                string baseUrl = Environment.GetEnvironmentVariable("API_BASE_URL");
-                string apiUrl = $"{baseUrl}/api/launches/favorites";
+                string apiUrl = $"{_baseUrl}/api/launches/favorites";
 
                 var response = await _httpClient.PostAsync(apiUrl, content);
 

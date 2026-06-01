@@ -47,10 +47,48 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <Style x:Key="DangerButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FF1E0F45"/>
+            <Setter Property="Foreground" Value="#FFFF4C4C"/>
+            <Setter Property="BorderBrush" Value="#FF3F1975"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Bauhaus 93"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="8" Color="Black" Opacity="0.4" ShadowDepth="2"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="10" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF3D0C15"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="BorderBrush" Value="#FFFF4C4C"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#FFFF4C4C" BlurRadius="10" ShadowDepth="0" Opacity="0.8"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
 
     <Grid Margin="30">
-
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -67,6 +105,7 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
+
         <StackPanel Grid.Row="0" Margin="0,0,0,20">
             <TextBlock Text="SPACE LAUNCHES ARCHIVE" Foreground="#FFFD71CB" 
                        FontSize="28" FontFamily="Bauhaus 93" Margin="0,0,0,15">
@@ -98,7 +137,7 @@
 
                 <Button Grid.Column="2" Content="MY FAVORITES" Margin="15,0,0,0"
                         Width="150" Height="45" Click="ViewArchiveButton_Click"
-                        Style="{StaticResource NavButtonStyle}" Foreground="#FFF2C12E"/>
+                        Style="{StaticResource NavButtonStyle}" Foreground="#FFF2C12E" VerticalAlignment="Top"/>
             </Grid>
         </StackPanel>
 
@@ -150,8 +189,17 @@
             </DataGrid>
         </Border>
 
-        <Button Grid.Row="2" Content="ADD SELECTED TO FAVORITES" 
-                Margin="0,20,0,0" Height="55" Click="SaveButton_Click"
-                Style="{StaticResource NavButtonStyle}" Foreground="#FFFD71CB"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+
+            <Button x:Name="BtnAddFavorite" Content="ADD TO FAVORITES" 
+                    Width="300" Height="55" Click="SaveButton_Click"
+                    Style="{StaticResource NavButtonStyle}" Foreground="#FFFD71CB"/>
+
+            <Button x:Name="BtnRemoveFavorite" Content="REMOVE FROM FAVORITES" 
+                    Width="300" Height="55" Click="DeleteButton_Click"
+                    Style="{StaticResource DangerButtonStyle}"
+                    Visibility="Collapsed"/>
+
+        </StackPanel>
     </Grid>
 </Window>
