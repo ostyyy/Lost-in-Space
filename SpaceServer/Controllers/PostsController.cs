@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SpaceServer.Data;
 using SpaceServer.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace SpaceServer.Controllers
 {
@@ -17,23 +19,35 @@ namespace SpaceServer.Controllers
             _context = context;
         }
 
+        // 1. Возвращаем AuthorID в запрос
         public class CreatePostRequest
         {
-            public string Title { get; set; } =  string.Empty;
+            public string Title { get; set; } = string.Empty;
             public string Content { get; set; } = string.Empty;
-            public int TopicID { get; set; }
+            public string TopicName { get; set; } = string.Empty;
             public int AuthorID { get; set; }
         }
 
         [HttpPost("create")]
         public async Task<IActionResult> CreatePost([FromBody] CreatePostRequest request)
         {
+            var topic = await _context.Topics.FirstOrDefaultAsync(t => t.Title.ToLower() == request.TopicName.ToLower());
+            if (topic == null)
+            {
+                topic = new Topic 
+                { 
+                    Title = request.TopicName,
+                    AuthorID = request.AuthorID
+                };
+                _context.Topics.Add(topic);
+                await _context.SaveChangesAsync();
+            }
             var newPost = new Post
             {
                 Title = request.Title,
                 Content = request.Content,
-                AuthorID = request.AuthorID,
-                TopicID = request.TopicID,
+                TopicID = topic.ID,
+                AuthorID = request.AuthorID, 
                 CreatedDate = DateTime.UtcNow
             };
 
@@ -48,6 +62,25 @@ namespace SpaceServer.Controllers
         {
             var posts = await _context.Posts
                 .Where(p => p.TopicID == topicId)
+                .ToListAsync();
+
+            return Ok(posts);
+        }
+
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllPosts()
+        {
+            var posts = await _context.Posts
+                .Include(p => p.Topic)
+                .OrderByDescending(p => p.CreatedDate)
+                .Select(p => new
+                {
+                    Id = p.ID, 
+                    Title = p.Title,
+                    Content = p.Content,
+                    CreatedDate = p.CreatedDate,
+                    Topic = new { Title = p.Topic.Title } 
+                })
                 .ToListAsync();
 
             return Ok(posts);

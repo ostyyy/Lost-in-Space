@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -20,6 +21,7 @@ namespace SpaceClient.ViewModels
         private List<Post> _allPosts = new List<Post>();
 
         private ObservableCollection<Post> _forumPosts = new ObservableCollection<Post>();
+
         public ObservableCollection<Post> ForumPosts
         {
             get => _forumPosts;
@@ -27,6 +29,46 @@ namespace SpaceClient.ViewModels
             {
                 _forumPosts = value;
                 OnPropertyChanged();
+            }
+        }
+        private ObservableCollection<Topic> _availableTopics = new ObservableCollection<Topic>();
+        public ObservableCollection<Topic> AvailableTopics
+        {
+            get => _availableTopics;
+            set
+            {
+                _availableTopics = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public async Task LoadTopicsFromServer()
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"{_baseUrl}/api/topics");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonText = await response.Content.ReadAsStringAsync();
+                    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
+                    var topics = JsonSerializer.Deserialize<List<Topic>>(jsonText, options) ?? new List<Topic>();
+
+                    AvailableTopics.Clear();
+                    foreach (var topic in topics)
+                    {
+                        AvailableTopics.Add(topic);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"Error: {response.StatusCode}", "Erorr");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Database Error");
             }
         }
 
@@ -69,28 +111,69 @@ namespace SpaceClient.ViewModels
         {
             _baseUrl = Environment.GetEnvironmentVariable("API_BASE_URL") ?? "http://localhost:5232";
         }
+
         public async Task LoadPostsFromServer()
         {
             try
             {
-                _allPosts = new List<Post>
+                var response = await _httpClient.GetAsync($"{_baseUrl}/api/posts/all");
+                if (response.IsSuccessStatusCode)
                 {
-                    new Post { Title = "Test post", Content = "Testim.", CreatedDate = DateTime.Now }
-                };
+                    var jsonText = await response.Content.ReadAsStringAsync();
 
-                FilterPosts();
+                    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
+                    _allPosts = JsonSerializer.Deserialize<List<Post>>(jsonText, options) ?? new List<Post>();
+
+                    FilterPosts();
+                }    
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error: {ex}");
             }
         }
+
+        public async Task SendNewPost(string title, string content, string topicName)
+        {
+           
+            try
+            {
+                var requestData = new
+                {
+                    Title = title,
+                    Content = content,
+                    TopicName = topicName,
+                    AuthorID = App.CurrentUserId
+                };
+
+                var jsonText = JsonSerializer.Serialize(requestData);
+                var httpContent = new StringContent(jsonText, Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PostAsync($"{_baseUrl}/api/posts/create", httpContent);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Successfully added new post!", "Added", MessageBoxButton.OK, MessageBoxImage.Information);
+                    await LoadPostsFromServer();
+                }
+                else
+                {
+                    string errorText = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show($"Somthing went wrong! {errorText}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
         private void FilterPosts()
         {
-            ForumPosts.Clear();
+            _forumPosts.Clear();
             foreach (var post in _allPosts)
             {
-                ForumPosts.Add(post);
+                _forumPosts.Add(post);
             }
         }
 

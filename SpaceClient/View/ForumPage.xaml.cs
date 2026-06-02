@@ -33,7 +33,7 @@ namespace SpaceClient.View
 
         private void CreatePost_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new ForumPageCreate(ViewModel));
         }
         private void OpenPost_Click(object sender, RoutedEventArgs e)
         {
