@@ -69,7 +69,7 @@ namespace SpaceServer.Controllers
                 .OrderByDescending(i => i.Date)
                 .ToListAsync();
 
-            var clientFriendlyResult = archive.Select(i => new
+            var clientResult = archive.Select(i => new
             {
                 id = i.Id,
                 userId = i.UserId,
@@ -79,29 +79,23 @@ namespace SpaceServer.Controllers
                 imageURL = i.ImageURL
             }).ToList();
 
-            return Ok(clientFriendlyResult);
+            return Ok(clientResult);
         }
 
-        [HttpDelete("delete/{id}/{userId}")]
-        public async Task<IActionResult> DeleteImage(int id, int userId)
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteArchiveItem(int id)
         {
-            var image = await _context.ImagesOfTheDay.FindAsync(id);
+            var item = await _context.ImagesOfTheDay.FindAsync(id);
 
-            if (image == null)
+            if (item == null)
             {
-                return NotFound("Record not found in the archive.");
+                return NotFound("Record not found");
             }
 
-            if (image.UserId != userId)
-            {
-                return Forbid("Access denied. You can only delete your own archived images.");
-            }
-
-            _context.ImagesOfTheDay.Remove(image);
-
+            _context.ImagesOfTheDay.Remove(item);
             await _context.SaveChangesAsync();
 
-            return Ok("Successfully removed from archive");
+            return Ok("Record deleted successfully");
         }
     }
 }
