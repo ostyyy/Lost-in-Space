@@ -16,7 +16,8 @@ const satelliteTheme = L.tileLayer(
 );
 
 const issIcon = L.icon({
-    iconUrl: 'ISS.png',
+    iconUrl:
+        'https://static.isstracker.pl/images/satellites_icon/4/44/iss-25544-v2.png',
     iconSize: [60, 60],
     iconAnchor: [30, 30],
 });
@@ -52,4 +53,5 @@ function updateISS(lat, lng) {
     const newPos = [lat, lng];
     marker.setLatLng(newPos);
     radarCircle.setLatLng(newPos);
+    map.setView(newPos, map.getZoom());
 }
