@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="music\Space.mp3" />
+    <None Remove="music\Space.wav" />
     <None Remove="Pictures\black-hole.png" />
     <None Remove="Pictures\ForumLogo.png" />
     <None Remove="Pictures\galaxy.png" />
@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="music\Space.mp3">
+    <Content Include="music\Space.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

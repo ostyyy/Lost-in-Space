@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Media;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 
@@ -10,40 +12,39 @@ namespace SpaceClient.View
     /// </summary>
     public partial class NavigationWindow : Window
     {
-
-        private MediaPlayer _backgroundPlayer = new MediaPlayer();
+        private SoundPlayer _backgroundPlayer;
         public NavigationWindow()
         {
             InitializeComponent();
 
             StartBackgroundMusic();
-
         }
-
 
         private void StartBackgroundMusic()
         {
             try
             {
-                string musicPath = @"D:\uni_projects\SpaceApp\SpaceApp\SpaceClient\music\Space.mp3";
+                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-                _backgroundPlayer.Open(new Uri(musicPath, UriKind.Absolute));
+                string musicPath = Path.Combine(baseDirectory, "music", "Space.wav");
 
-                _backgroundPlayer.Volume = 0.3;
-
-                _backgroundPlayer.MediaEnded += (sender, e) =>
+                if (File.Exists(musicPath))
                 {
-                    _backgroundPlayer.Position = TimeSpan.Zero; 
-                    _backgroundPlayer.Play();
-                };
+                    _backgroundPlayer = new SoundPlayer(musicPath);
 
-                _backgroundPlayer.Play();
+                    _backgroundPlayer.PlayLooping();
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine($"[Music Error] Файл не знайдено за шляхом: {musicPath}");
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error playing background music: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Error playing background music: {ex.Message}");
             }
         }
+
 
         private void ToggleSidebar_Click(object sender, RoutedEventArgs e)
         {
@@ -84,7 +85,7 @@ namespace SpaceClient.View
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             _backgroundPlayer.Stop();
-            _backgroundPlayer.Close();
+            _backgroundPlayer?.Dispose();
 
             this.Close();
         }
