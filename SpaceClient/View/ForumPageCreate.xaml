@@ -79,21 +79,27 @@
 
                 <StackPanel Grid.Row="2" Margin="0,0,0,15">
                     <TextBlock Text="SELECT OR TYPE TOPIC" Foreground="#FF64748B" FontFamily="Bauhaus 93" Margin="0,0,0,5"/>
-                    <ComboBox x:Name="CmbTopic" IsEditable="True" 
+
+                    <Grid>
+                        <ComboBox x:Name="CmbTopic" 
                               ItemsSource="{Binding AvailableTopics}" DisplayMemberPath="Title"
                               Background="#FF0D162D" Foreground="White" BorderBrush="#FF3F1975" 
-                              Height="40" Padding="10,5" FontSize="14">
-                        <ComboBox.Resources>
-                            <Style TargetType="{x:Type TextBox}">
-                                <Setter Property="Background" Value="#FF0D162D"/>
-                                <Setter Property="Foreground" Value="#FF0D162D"/>
-                                <Setter Property="BorderThickness" Value="0"/>
-                            </Style>
-                            <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#FF0D162D"/>
-                            <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#FF0D162D"/>
-                            <SolidColorBrush x:Key="{x:Static SystemColors.WindowTextBrushKey}" Color="White"/>
-                        </ComboBox.Resources>
-                    </ComboBox>
+                              Height="40" Padding="10,5" FontSize="14"
+                              SelectionChanged="CmbTopic_SelectionChanged">     
+
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="ComboBoxItem">
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="Background" Value="#FF0D162D"/>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                        </ComboBox>
+
+                        <TextBox x:Name="TxtTopicInput" 
+                 Background="#FF0D162D" Foreground="White" BorderThickness="0"
+                 Margin="3,3,30,3" Height="34" Padding="10,0" FontSize="14" 
+                 VerticalContentAlignment="Center" CaretBrush="White"/>
+                    </Grid>
                 </StackPanel>
 
                 <StackPanel Grid.Row="3" Margin="0,0,0,25">
