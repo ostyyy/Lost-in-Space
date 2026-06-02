@@ -1,0 +1,27 @@
+﻿<!doctype html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8" />
+        <title>ISS Tracker Map</title>
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <link rel="stylesheet" href="style.css" />
+        <script defer src="index.js"></script>
+    </head>
+    <body>
+        <div class="top-nav">
+            <button class="nav-btn" onclick="toggleMapMode()">
+                <img src="globe.png" alt="Planet" /> View
+            </button>
+
+            <button class="nav-btn" onclick="focusOnIss()">
+                <img src="focus.png" alt="Target" /> Focus ISS
+            </button>
+        </div>
+
+        <div id="map"></div>
+    </body>
+</html>
