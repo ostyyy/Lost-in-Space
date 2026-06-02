@@ -1,4 +1,6 @@
 ﻿using SpaceClient.ViewModels;
+using SpaceClient.ViewModels;
+using SpaceServer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +15,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SpaceClient.ViewModels;
 
 namespace SpaceClient.View
 {
@@ -31,18 +32,26 @@ namespace SpaceClient.View
 
             _ = _viewModel.LoadTopicsFromServer();
         }
-
+        private void CmbTopic_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CmbTopic.SelectedItem is Topic selectedTopic)
+            {
+                TxtTopicInput.Text = selectedTopic.Title;
+            }
+        }
         private async void Send_Click(object sender, RoutedEventArgs e)
         {
-            string topicName = CmbTopic.Text.Trim();
-            if (string.IsNullOrWhiteSpace(TxtTitle.Text) || string.IsNullOrWhiteSpace(TxtContent.Text))
+            string topicName = TxtTopicInput.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(TxtTitle.Text) ||
+                string.IsNullOrWhiteSpace(TxtContent.Text) ||
+                string.IsNullOrWhiteSpace(topicName))
             {
                 MessageBox.Show("Do not leave fields blank!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             await _viewModel.SendNewPost(TxtTitle.Text, TxtContent.Text, topicName);
-
             NavigationService.GoBack();
         }
 
