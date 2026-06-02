@@ -65,6 +65,8 @@ namespace SpaceClient.View
 
         private void ToForum_Click(object sender, RoutedEventArgs e)
         {
+            Forum forumPage = new Forum();
+            MainFrame.Navigate(forumPage);
         }
 
         private void ToImages_Click(object sender, RoutedEventArgs e)

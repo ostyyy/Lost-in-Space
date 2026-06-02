@@ -1,0 +1,199 @@
+﻿<Page x:Class="SpaceClient.View.Forum"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      Title="Space Forum" Height="650" Width="900"
+      Background="#FF060B19">
+
+    <Page.Resources>
+        <Style x:Key="NavButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FF1E0F45"/>
+            <Setter Property="Foreground" Value="#FFAECFFF"/>
+            <Setter Property="BorderBrush" Value="#FF3F1975"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Bauhaus 93"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="8" Color="Black" Opacity="0.4" ShadowDepth="2"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="10" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF4A208C"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="BorderBrush" Value="#FFFD71CB"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#FFFD71CB" BlurRadius="10" ShadowDepth="0" Opacity="0.8"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="PostCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="#AA0D162D"/>
+            <Setter Property="BorderBrush" Value="#FF1E2947"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Margin" Value="0,0,10,15"/>
+            <Setter Property="Padding" Value="20"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid Margin="30">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Image Grid.RowSpan="2" Source="/Pictures/background.png" Stretch="UniformToFill" Opacity="0.3" Margin="-30" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="-1">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.794"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+
+        <TextBlock Text="INTERGALACTIC FORUM" Foreground="#FFFD71CB" 
+                   FontSize="28" FontFamily="Bauhaus 93" Margin="0,0,0,20">
+            <TextBlock.Effect>
+                <DropShadowEffect Color="#FFFD71CB" BlurRadius="10" ShadowDepth="0"/>
+            </TextBlock.Effect>
+        </TextBlock>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="250"/>
+            </Grid.ColumnDefinitions>
+
+            <ListBox ItemsSource="{Binding ForumPosts}" Background="Transparent" BorderThickness="0" 
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                     HorizontalContentAlignment="Stretch">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <ContentPresenter HorizontalAlignment="Stretch"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource PostCardStyle}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Text="{Binding Title, FallbackValue='СЕКРЕТНЫЙ ЧЕРТЕЖ ДВИГАТЕЛЯ'}" 
+                                           Foreground="#FFAECFFF" FontSize="20" FontFamily="Bauhaus 93"/>
+
+                                <TextBlock Grid.Row="1" Text="{Binding Topic, FallbackValue='ТЕМА: Инженерия'}" 
+                                           Foreground="#FF64748B" FontSize="12" FontFamily="Consolas" Margin="0,5,0,15"/>
+
+                                <TextBlock Grid.Row="2" Text="{Binding Content, FallbackValue='В ходе последних испытаний мы обнаружили аномалию...'}" 
+                                           Foreground="White" FontSize="14" TextWrapping="Wrap" MaxHeight="60" TextTrimming="CharacterEllipsis" Margin="0,0,40,0"/>
+
+                                <Button Grid.Row="2" Content="➔" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                        Background="Transparent" Foreground="#FFFD71CB" BorderThickness="0" 
+                                        FontSize="24" Cursor="Hand" Click="OpenPost_Click">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <Rectangle Grid.Column="1" Width="2" Fill="#FF1E2947" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="0,0,0,20">
+                    <TextBlock Text="SCAN DATABASE" Foreground="#FF64748B" FontFamily="Bauhaus 93" Margin="0,0,0,5"/>
+                    <Border Background="#FF0D162D" CornerRadius="8" BorderBrush="#FF3F1975" BorderThickness="1">
+                        <Grid>
+                            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
+                                     Background="Transparent" Foreground="White" BorderThickness="0" 
+                                     Padding="10,8,30,8" FontSize="14" VerticalContentAlignment="Center"/>
+                            <TextBlock Text="⌕" Foreground="#FF64748B" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Margin="0,0,0,20">
+                    <TextBlock Text="FILTER BY TOPIC" Foreground="#FF64748B" FontFamily="Bauhaus 93" Margin="0,0,0,5"/>
+                    <ComboBox Background="#FF0D162D" Foreground="White" BorderBrush="#FF3F1975" Height="35" Padding="10,5">
+                        
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2">
+                    <TextBlock Text="DATE RANGE" Foreground="#FF64748B" FontFamily="Bauhaus 93" Margin="0,0,0,5"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <DatePicker Grid.Column="0" SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}"
+                                    Background="#FF0D162D" BorderBrush="#FF3F1975" Height="35" 
+                                    VerticalContentAlignment="Center" ToolTip="Start Date"/>
+
+                        <TextBlock Grid.Column="1" Text="-" Foreground="#FF64748B" FontSize="20" 
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                        <DatePicker Grid.Column="2" SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"
+                                    Background="#FF0D162D" BorderBrush="#FF3F1975" Height="35" 
+                                    VerticalContentAlignment="Center" ToolTip="End Date"/>
+                    </Grid>
+                </StackPanel>
+
+                <Button Grid.Row="4" Content="CREATE POST" Style="{StaticResource NavButtonStyle}" 
+                        Height="55" Margin="0,0,0,15" Click="CreatePost_Click"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

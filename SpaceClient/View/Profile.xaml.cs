@@ -27,11 +27,11 @@ namespace SpaceClient.View
 
         private void ToForumbtn_Click(object sender, RoutedEventArgs e)
         {
-            Forum forumWindow = new Forum();
+            //Forum forumWindow = new Forum();
 
-            forumWindow.Show();
+            //forumWindow.Show();
 
-            this.Close();
+            //this.Close();
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)

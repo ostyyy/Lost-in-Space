@@ -144,7 +144,7 @@
         <Border Grid.Row="1" Background="#AA0D162D" CornerRadius="12" 
                 BorderBrush="#FF1E2947" BorderThickness="2">
 
-            <DataGrid ItemsSource="{Binding AvailableLaunches}" 
+            <DataGrid IsReadOnly="True" ItemsSource="{Binding AvailableLaunches}" 
                       SelectedItem="{Binding SelectedLaunch}"
                       AutoGenerateColumns="False" Background="Transparent" 
                       Foreground="White" BorderThickness="0" GridLinesVisibility="None"

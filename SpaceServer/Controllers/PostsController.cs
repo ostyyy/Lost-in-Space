@@ -19,6 +19,7 @@ namespace SpaceServer.Controllers
 
         public class CreatePostRequest
         {
+            public string Title { get; set; } =  string.Empty;
             public string Content { get; set; } = string.Empty;
             public int TopicID { get; set; }
             public int AuthorID { get; set; }
@@ -29,6 +30,7 @@ namespace SpaceServer.Controllers
         {
             var newPost = new Post
             {
+                Title = request.Title,
                 Content = request.Content,
                 AuthorID = request.AuthorID,
                 TopicID = request.TopicID,

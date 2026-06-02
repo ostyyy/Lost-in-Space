@@ -8,6 +8,9 @@ namespace SpaceServer.Models
         [Column("id")]
         public int ID { get; set; }
 
+        [Column("title")]
+        public string Title { get; set; } = string.Empty;
+
         [Column("content")]
         public string Content { get; set; } = string.Empty;
 
