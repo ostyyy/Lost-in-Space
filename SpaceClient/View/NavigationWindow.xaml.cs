@@ -75,6 +75,8 @@ namespace SpaceClient.View
 
         private void ToISS_Click(object sender, RoutedEventArgs e)
         {
+            ISS_Form issPage = new ISS_Form();
+            MainFrame.Navigate(issPage);
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)

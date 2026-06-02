@@ -17,7 +17,7 @@ namespace SpaceClient.View
     /// <summary>
     /// Логика взаимодействия для ISS_Form.xaml
     /// </summary>
-    public partial class ISS_Form : Window
+    public partial class ISS_Form : Page
     {
         public ISS_Form()
         {
