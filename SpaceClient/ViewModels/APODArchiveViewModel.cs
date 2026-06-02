@@ -127,7 +127,6 @@ namespace SpaceClient.ViewModels
         }
     }
 
-    // Клас винесено окремо в простір імен, щоб серіалізатор бачив його структуру без перешкод
     public class ArchiveItem
     {
         [JsonPropertyName("id")]
