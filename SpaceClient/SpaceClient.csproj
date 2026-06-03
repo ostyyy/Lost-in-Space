@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="music\Space.wav" />
     <None Remove="Pictures\black-hole.png" />
     <None Remove="Pictures\ForumLogo.png" />
     <None Remove="Pictures\galaxy.png" />
@@ -27,6 +28,12 @@
     <None Remove="Pictures\ufo %281%29.png" />
     <None Remove="Pictures\ufo %282%29.png" />
     <None Remove="Pictures\ufo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="music\Space.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
