@@ -30,7 +30,6 @@
     <None Remove="Pictures\ufo %282%29.png" />
     <None Remove="Pictures\ufo.png" />
     <None Remove="Pictures\unmute.png" />
-    <None Remove="View\mute.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -79,7 +78,6 @@
     <Resource Include="Pictures\ufo (1).png" />
     <Resource Include="Pictures\ufo (2).png" />
     <Resource Include="Pictures\ufo.png" />
-    <Resource Include="View\mute.png" />
     <Resource Include="Web\ISS.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

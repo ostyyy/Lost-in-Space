@@ -12,7 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using SpaceClient.ViewModels;
+
+
 
 namespace SpaceClient.View
 {
@@ -37,7 +38,15 @@ namespace SpaceClient.View
         }
         private void OpenPost_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (sender is Button btn && btn.DataContext is SpaceServer.Models.Post selectedPost)
+            {
+                PostDetailsPage detailsPage = new PostDetailsPage(selectedPost);
+
+                if (this.NavigationService != null)
+                {
+                    this.NavigationService.Navigate(detailsPage);
+                }
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using SpaceClient.ViewModels;
-using SpaceClient.ViewModels;
 using SpaceServer.Models;
 using System;
 using System.Collections.Generic;
