@@ -30,6 +30,7 @@ namespace SpaceClient.View
             this.DataContext = ViewModel;
 
             _ = ViewModel.LoadPostsFromServer();
+            _ = ViewModel.LoadTopicsFromServer();
         }
 
         private void CreatePost_Click(object sender, RoutedEventArgs e)

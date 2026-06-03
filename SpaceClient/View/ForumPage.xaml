@@ -163,8 +163,18 @@
 
                 <StackPanel Grid.Row="1" Margin="0,0,0,20">
                     <TextBlock Text="FILTER BY TOPIC" Foreground="#FF64748B" FontFamily="Bauhaus 93" Margin="0,0,0,5"/>
-                    <ComboBox Background="#FF0D162D" Foreground="White" BorderBrush="#FF3F1975" Height="35" Padding="10,5">
+                    <ComboBox Background="#FF0D162D" Foreground="#FF0D162D" BorderBrush="#FF3F1975" 
+                              Height="40" Padding="10,5" FontSize="14"
+                              ItemsSource="{Binding AvailableTopics}" 
+                              DisplayMemberPath="Title"
+                              SelectedItem="{Binding SelectedFilterTopic, UpdateSourceTrigger=PropertyChanged}">
 
+                        <ComboBox.ItemContainerStyle>
+                            <Style TargetType="ComboBoxItem">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Background" Value="#FF0D162D"/>
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
                     </ComboBox>
                 </StackPanel>
 

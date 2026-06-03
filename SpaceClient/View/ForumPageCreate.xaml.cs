@@ -58,5 +58,10 @@ namespace SpaceClient.View
         {
             NavigationService.GoBack();
         }
+
+        private void TxtTopicInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

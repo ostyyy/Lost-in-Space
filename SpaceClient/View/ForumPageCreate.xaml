@@ -98,7 +98,7 @@
                         <TextBox x:Name="TxtTopicInput" 
                  Background="#FF0D162D" Foreground="White" BorderThickness="0"
                  Margin="3,3,30,3" Height="34" Padding="10,0" FontSize="14" 
-                 VerticalContentAlignment="Center" CaretBrush="White"/>
+                 VerticalContentAlignment="Center" CaretBrush="White" TextChanged="TxtTopicInput_TextChanged"/>
                     </Grid>
                 </StackPanel>
 

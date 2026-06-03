@@ -56,6 +56,8 @@ namespace SpaceClient.ViewModels
                     var topics = JsonSerializer.Deserialize<List<Topic>>(jsonText, options) ?? new List<Topic>();
 
                     AvailableTopics.Clear();
+
+                    AvailableTopics.Add(new Topic { Title = "ALL TOPICS" });
                     foreach (var topic in topics)
                     {
                         AvailableTopics.Add(topic);
@@ -72,41 +74,34 @@ namespace SpaceClient.ViewModels
             }
         }
 
-        private string _searchText = string.Empty;
+        private string _searchText;
         public string SearchText
         {
             get => _searchText;
-            set
-            {
-                _searchText = value;
-                OnPropertyChanged();
-                FilterPosts();
-            }
+            set { _searchText = value; OnPropertyChanged(); FilterPosts(); }
         }
 
         private DateTime? _startDate;
         public DateTime? StartDate
         {
             get => _startDate;
-            set
-            {
-                _startDate = value;
-                OnPropertyChanged();
-                FilterPosts();
-            }
+            set { _startDate = value; OnPropertyChanged(); FilterPosts(); }
         }
 
         private DateTime? _endDate;
         public DateTime? EndDate
         {
             get => _endDate;
-            set
-            {
-                _endDate = value;
-                OnPropertyChanged();
-                FilterPosts();
-            }
+            set { _endDate = value; OnPropertyChanged(); FilterPosts(); }
         }
+
+        private Topic _selectedFilterTopic;
+        public Topic SelectedFilterTopic
+        {
+            get => _selectedFilterTopic;
+            set { _selectedFilterTopic = value; OnPropertyChanged(); FilterPosts(); } 
+        }
+
         public ForumViewModel() 
         {
             _baseUrl = Environment.GetEnvironmentVariable("API_BASE_URL") ?? "http://localhost:5232";
@@ -170,10 +165,42 @@ namespace SpaceClient.ViewModels
         }
         private void FilterPosts()
         {
-            _forumPosts.Clear();
-            foreach (var post in _allPosts)
+            if (_allPosts == null)
+            { 
+                return; 
+            }
+
+            var filtered = _allPosts.AsEnumerable();
+
+            if (!string.IsNullOrWhiteSpace(SearchText))
             {
-                _forumPosts.Add(post);
+                var lowerSearch = SearchText.ToLower();
+                filtered = filtered.Where(p =>
+                    (p.Title != null && p.Title.ToLower().Contains(lowerSearch)) ||
+                    (p.Content != null && p.Content.ToLower().Contains(lowerSearch))
+                );
+            }
+
+            if(SelectedFilterTopic != null && SelectedFilterTopic.Title != "ALL TOPICS")
+            {
+                filtered = filtered.Where(p => p.Topic != null && p.Topic.Title == SelectedFilterTopic.Title);
+            }
+
+            if (StartDate.HasValue)
+            {
+                filtered = filtered.Where(p => p.CreatedDate >= StartDate.Value);
+            }
+
+            if (EndDate.HasValue)
+            {
+                var endOfEnd = EndDate.Value.AddDays(1);
+                filtered = filtered.Where(p => p.CreatedDate < endOfEnd);
+            }
+
+            ForumPosts.Clear();
+            foreach (var post in filtered.ToList())
+            {
+                ForumPosts.Add(post);
             }
         }
 
