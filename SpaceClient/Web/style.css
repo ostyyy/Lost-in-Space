@@ -63,6 +63,18 @@ body,
     animation: radarPulse 2.5s infinite ease-in-out;
 }
 
+.sun-glow {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+
+    animation: sunPulse 4s infinite ease-in-out;
+
+    filter: drop-shadow(0 0 10px #ff9900da) drop-shadow(0 0 1px #ff9900de);
+
+    animation: sunPulse 4s infinite ease-in-out;
+}
+
 @keyframes radarPulse {
     0% {
         fill-opacity: 0.03;
@@ -75,5 +87,26 @@ body,
     100% {
         fill-opacity: 0.03;
         stroke-opacity: 0.3;
+    }
+}
+
+@keyframes sunPulse {
+    0% {
+        box-shadow:
+            0 0 10px rgba(255, 153, 0, 0.466),
+            0 0 20px rgba(255, 123, 0, 0.356);
+        opacity: 0.8;
+    }
+    50% {
+        box-shadow:
+            0 0 25px rgba(255, 166, 0, 0.6),
+            0 0 35px rgba(255, 153, 0, 0.4);
+        opacity: 1;
+    }
+    100% {
+        box-shadow:
+            0 0 10px rgba(255, 145, 0, 0.4),
+            0 0 20px rgba(255, 153, 0, 0.2);
+        opacity: 0.8;
     }
 }

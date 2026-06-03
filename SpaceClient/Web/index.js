@@ -1,6 +1,5 @@
 ﻿const map = L.map('map', { zoomControl: false }).setView([0, 0], 2);
 
-// Темна тема за замовчуванням
 const darkTheme = L.tileLayer(
     'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
     {
@@ -15,6 +14,7 @@ const satelliteTheme = L.tileLayer(
     },
 );
 
+// ICONS
 const issIcon = L.icon({
     iconUrl:
         'https://static.isstracker.pl/images/satellites_icon/4/44/iss-25544-v2.png',
@@ -22,6 +22,13 @@ const issIcon = L.icon({
     iconAnchor: [30, 30],
 });
 
+const sunIcon = L.icon({
+    iconUrl: 'https://static.isstracker.pl/img/layout/icon_sun.png',
+    iconSize: [50, 50],
+    iconAnchor: [20, 20],
+});
+
+// ISS
 const marker = L.marker([0, 0], { icon: issIcon }).addTo(map);
 
 const radarCircle = L.circleMarker([0, 0], {
@@ -29,6 +36,15 @@ const radarCircle = L.circleMarker([0, 0], {
     className: 'radar-glow',
 }).addTo(map);
 
+// SUN
+const sunMarker = L.marker([0, 0], { icon: sunIcon }).addTo(map);
+
+const sunIconImage = sunMarker.getElement();
+if (sunIconImage) {
+    sunIconImage.classList.add('sun-glow');
+}
+
+// MAP
 let isSatellite = false;
 function toggleMapMode() {
     if (!isSatellite) {
@@ -49,27 +65,53 @@ function focusOnIss() {
     });
 }
 
+// SUN POSITION
+function updateSunPosition() {
+    const now = new Date();
+
+    const sunPos = SunCalc.getPosition(now, 0, 0);
+
+    const lat = sunPos.altitude * (180 / Math.PI);
+
+    const utcHours =
+        now.getUTCHours() +
+        now.getUTCMinutes() / 60 +
+        now.getUTCSeconds() / 3600;
+    let lng = 180 - utcHours * 15;
+    if (lng < -180) lng += 360;
+    if (lng > 180) lng -= 360;
+
+    sunMarker.setLatLng([lat, lng]);
+}
+
+// ISS TRACKING
 function updateISS(lat, lng) {
     const newPos = [lat, lng];
     marker.setLatLng(newPos);
     radarCircle.setLatLng(newPos);
     //map.setView(newPos, map.getZoom());
+
+    updateSunPosition();
 }
 
 const orbitPath = L.polyline([], {
     color: '#FD71CB',
     weight: 3,
     dashArray: '10, 10',
-    opacity: 0.8
+    opacity: 0.8,
 }).addTo(map);
 
 async function drawFutureOrbit() {
     try {
-        const response = await fetch('https://api.wheretheiss.at/v1/satellites/25544/tles');
+        const response = await fetch(
+            'https://api.wheretheiss.at/v1/satellites/25544/tles',
+        );
         const data = await response.json();
 
         if (typeof satellite === 'undefined') {
-            console.error("КРИТИЧЕСКАЯ ОШИБКА: Библиотека satellite.js не найдена!");
+            console.error(
+                'КРИТИЧЕСКАЯ ОШИБКА: Библиотека satellite.js не найдена!',
+            );
             return;
         }
 
@@ -81,7 +123,10 @@ async function drawFutureOrbit() {
             const futureTime = new Date(now.getTime() + i * 60000);
             const positionAndVelocity = satellite.propagate(satrec, futureTime);
             const gmst = satellite.gstime(futureTime);
-            const positionGd = satellite.eciToGeodetic(positionAndVelocity.position, gmst);
+            const positionGd = satellite.eciToGeodetic(
+                positionAndVelocity.position,
+                gmst,
+            );
 
             const lat = satellite.degreesLat(positionGd.latitude);
             const lng = satellite.degreesLong(positionGd.longitude);
@@ -93,7 +138,10 @@ async function drawFutureOrbit() {
 
         for (let i = 0; i < latlngs.length; i++) {
             currentSegment.push(latlngs[i]);
-            if (i < latlngs.length - 1 && Math.abs(latlngs[i][1] - latlngs[i + 1][1]) > 180) {
+            if (
+                i < latlngs.length - 1 &&
+                Math.abs(latlngs[i][1] - latlngs[i + 1][1]) > 180
+            ) {
                 correctedPaths.push(currentSegment);
                 currentSegment = [];
             }
@@ -101,11 +149,14 @@ async function drawFutureOrbit() {
         correctedPaths.push(currentSegment);
 
         orbitPath.setLatLngs(correctedPaths);
-
     } catch (error) {
-        console.error("Error:", error);
+        console.error('Error:', error);
     }
 }
 
+updateSunPosition();
 drawFutureOrbit();
+
 setInterval(drawFutureOrbit, 900000);
+
+setInterval(updateSunPosition, 60000);
