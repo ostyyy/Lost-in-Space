@@ -9,16 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="music\**" />
-    <EmbeddedResource Remove="music\**" />
-    <None Remove="music\**" />
-    <Page Remove="music\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="ISS\ISS_map.html" />
-    <None Remove="ISS\script.js" />
-    <None Remove="ISS\style.css" />
     <None Remove="Pictures\black-hole.png" />
     <None Remove="Pictures\ForumLogo.png" />
     <None Remove="Pictures\galaxy.png" />
@@ -37,18 +27,6 @@
     <None Remove="Pictures\ufo %281%29.png" />
     <None Remove="Pictures\ufo %282%29.png" />
     <None Remove="Pictures\ufo.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="ISS\ISS_map.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ISS\script.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ISS\style.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -92,6 +70,15 @@
 
   <ItemGroup>
     <None Update=".env">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ISS\ISS_map.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ISS\script.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ISS\style.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Web\focus.png">
