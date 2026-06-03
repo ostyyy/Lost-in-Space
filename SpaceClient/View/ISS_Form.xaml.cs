@@ -17,7 +17,7 @@ namespace SpaceClient.View
             InitializeComponent();
             InitializeMapAndTimer();
         }
-
+            
         private async void InitializeMapAndTimer()
         {
             try
@@ -39,10 +39,22 @@ namespace SpaceClient.View
                 _gpsTimer.Interval = TimeSpan.FromSeconds(3);
                 _gpsTimer.Tick += UpdateIssPositionOnMap;
                 _gpsTimer.Start();
+
+                var crew = await _issService.GetISSCrew();
+                if (crew.Count > 0)
+                {
+                    TxtCrewCount.Text = $"{crew.Count} PEOPLE ONBOARD";
+                    TxtCrewNames.Text = string.Join(", ", crew);
+                }
+                else
+                {
+                    TxtCrewCount.Text = "NO DATA";
+                    TxtCrewNames.Text = "Cannot retrieve crew list.";
+                }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Помилка ініціалізації карти МКС: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Error loading ISS: {ex.Message}");
             }
         }
 
@@ -54,13 +66,25 @@ namespace SpaceClient.View
             {
                 double lat = coordinates.Value.lat;
                 double lng = coordinates.Value.lng;
+                double alt = coordinates.Value.alt;
+                double vel = coordinates.Value.vel;
 
-                string jsCommand = string.Format(
-                    System.Globalization.CultureInfo.InvariantCulture,
-                    "updateISS({0}, {1});", lat, lng
-                );
-
+                string jsCommand = string.Format(System.Globalization.CultureInfo.InvariantCulture, "updateISS({0}, {1});", lat, lng);
                 await MyWebView.ExecuteScriptAsync(jsCommand);
+
+                TxtLat.Text = $"{lat.ToString("F4", System.Globalization.CultureInfo.InvariantCulture)}°";
+                TxtLng.Text = $"{lng.ToString("F4", System.Globalization.CultureInfo.InvariantCulture)}°";
+
+                TxtAlt.Text = alt.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+                TxtVel.Text = vel.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+
+                TxtStatus.Text = "STABLE";
+                TxtStatus.Foreground = new System.Windows.Media.SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#FF10B981"));
+            }
+            else
+            {
+                TxtStatus.Text = "LOST SIGNAL";
+                TxtStatus.Foreground = new System.Windows.Media.SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#FFFF4C4C"));
             }
         }
 

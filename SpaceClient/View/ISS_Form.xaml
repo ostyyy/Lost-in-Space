@@ -36,28 +36,85 @@
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="121*"/>
-                <ColumnDefinition Width="395*"/>
-                <ColumnDefinition Width="344*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="320"/>
             </Grid.ColumnDefinitions>
 
             <Border Grid.Column="0" Background="#AA0D162D" CornerRadius="10" 
-                    BorderBrush="#FF24335E" BorderThickness="2" Margin="0,0,15,0" Padding="2" ClipToBounds="True" Grid.ColumnSpan="2">
-
+                    BorderBrush="#FF24335E" BorderThickness="2" Padding="2" ClipToBounds="True">
                 <Wpf:WebView2 x:Name="MyWebView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-
             </Border>
 
-            <Border Grid.Column="2" Background="#CC0D162D" BorderBrush="#FF1E2947" BorderThickness="1" CornerRadius="10" Padding="15">
+            <Border Grid.Column="2" Background="#CC0D162D" BorderBrush="#FF1E2947" BorderThickness="1" CornerRadius="10" Padding="20">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" Margin="0,0,0,10">
+                    <TextBlock Text="LIVE TELEMETRY" Foreground="#FFAECFFF" FontFamily="Bauhaus 93" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,10">
+                        <TextBlock.Effect>
+                            <DropShadowEffect Color="#FFAECFFF" BlurRadius="10" ShadowDepth="0" Opacity="0.5"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+
+                    <Rectangle Grid.Row="1" Height="2" Fill="#FF24335E" Margin="0,0,0,20"/>
+
+                    <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
                         <StackPanel>
-                            <Rectangle Height="1" Fill="#FF24335E" Margin="0,0,0,10"/>
+
+                            <Grid Margin="0,0,0,15">
+                                <TextBlock Text="LATITUDE:" Foreground="#FF64748B" FontFamily="Consolas" FontSize="14" FontWeight="Bold"/>
+                                <TextBlock x:Name="TxtLat" Text="0.0000°" Foreground="White" FontFamily="Consolas" FontSize="16" HorizontalAlignment="Right"/>
+                            </Grid>
+
+                            <Grid Margin="0,0,0,15">
+                                <TextBlock Text="LONGITUDE:" Foreground="#FF64748B" FontFamily="Consolas" FontSize="14" FontWeight="Bold"/>
+                                <TextBlock x:Name="TxtLng" Text="0.0000°" Foreground="White" FontFamily="Consolas" FontSize="16" HorizontalAlignment="Right"/>
+                            </Grid>
+
+                            <Rectangle Height="1" Fill="#FF1E2947" Margin="0,5,0,20"/>
+
+                            <Grid Margin="0,0,0,15">
+                                <TextBlock Text="ALTITUDE:" Foreground="#FF64748B" FontFamily="Consolas" FontSize="14" FontWeight="Bold"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBlock x:Name="TxtAlt" Text="0.0" Foreground="#FFFD71CB" FontFamily="Consolas" FontSize="16" FontWeight="Bold"/>
+                                    <TextBlock Text=" km" Foreground="#FF64748B" FontFamily="Consolas" FontSize="16"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid Margin="0,0,0,15">
+                                <TextBlock Text="VELOCITY:" Foreground="#FF64748B" FontFamily="Consolas" FontSize="14" FontWeight="Bold"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBlock x:Name="TxtVel" Text="0.0" Foreground="#FFF2C12E" FontFamily="Consolas" FontSize="16" FontWeight="Bold"/>
+                                    <TextBlock Text=" km/h" Foreground="#FF64748B" FontFamily="Consolas" FontSize="16"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <Rectangle Height="1" Fill="#FF1E2947" Margin="0,5,0,20"/>
+
+                            <Grid Margin="0,0,0,15">
+                                <TextBlock Text="CONNECTION:" Foreground="#FF64748B" FontFamily="Consolas" FontSize="14" FontWeight="Bold"/>
+                                <TextBlock x:Name="TxtStatus" Text="STABLE" Foreground="#FF10B981" FontFamily="Consolas" FontSize="14" HorizontalAlignment="Right">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect Color="#FF10B981" BlurRadius="8" ShadowDepth="0"/>
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </Grid>
+                            
+                            <Rectangle Height="1" Fill="#FF1E2947" Margin="0,5,0,20"/>
+
+                            <Grid Margin="0,0,0,15">
+                                <StackPanel>
+                                    <TextBlock Text="CREW ONBOARD (ISS):" Foreground="#FF64748B" FontFamily="Consolas" FontSize="14" FontWeight="Bold" Margin="0,0,0,10"/>
+
+                                    <TextBlock x:Name="TxtCrewCount" Text="SCANNING..." Foreground="#FFAECFFF" FontFamily="Consolas" FontSize="16" FontWeight="Bold" Margin="0,0,0,5"/>
+
+                                    <TextBlock x:Name="TxtCrewNames" Text="" Foreground="White" FontFamily="Consolas" FontSize="13" TextWrapping="Wrap" LineHeight="20"/>
+                                </StackPanel>
+                            </Grid>
 
                         </StackPanel>
                     </ScrollViewer>
