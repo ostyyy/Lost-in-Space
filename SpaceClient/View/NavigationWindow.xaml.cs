@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Media;
 using System.IO;
+using System.Media;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 
 namespace SpaceClient.View
@@ -13,6 +14,7 @@ namespace SpaceClient.View
     public partial class NavigationWindow : Window
     {
         private SoundPlayer _backgroundPlayer;
+        private bool _isMuted = false;
         public NavigationWindow()
         {
             InitializeComponent();
@@ -24,27 +26,44 @@ namespace SpaceClient.View
         {
             try
             {
-                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                var resourceStream = Application.GetResourceStream(new Uri("/music/Space.wav", UriKind.Relative));
 
-                string musicPath = Path.Combine(baseDirectory, "music", "Space.wav");
-
-                if (File.Exists(musicPath))
+                if (resourceStream != null)
                 {
-                    _backgroundPlayer = new SoundPlayer(musicPath);
-
+                    _backgroundPlayer = new SoundPlayer(resourceStream.Stream);
                     _backgroundPlayer.PlayLooping();
                 }
-                else
-                {
-                    System.Diagnostics.Debug.WriteLine($"[Music Error] Файл не знайдено за шляхом: {musicPath}");
-                }
+
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error playing background music: {ex.Message}");
+
             }
         }
 
+        private void Mute_Click(object sender, RoutedEventArgs e)
+        {
+            if (_backgroundPlayer != null)
+            {
+                _isMuted = !_isMuted;
+
+                if (_isMuted)
+                {
+                    _backgroundPlayer.Stop();
+
+                    MuteImage.Source = new BitmapImage(new Uri("/Pictures/unmute.png", UriKind.Relative));
+                    BtnMute.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFFD71CB");
+                }
+                else
+                {
+                    _backgroundPlayer.PlayLooping();
+
+                    MuteImage.Source = new BitmapImage(new Uri("/Pictures/mute.png", UriKind.Relative));
+                    BtnMute.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFromString("#AECFFF");
+                }
+            }
+        }
 
         private void ToggleSidebar_Click(object sender, RoutedEventArgs e)
         {
@@ -84,8 +103,11 @@ namespace SpaceClient.View
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            _backgroundPlayer.Stop();
-            _backgroundPlayer?.Dispose();
+            if (_backgroundPlayer != null)
+            {
+                _backgroundPlayer.Stop();
+                _backgroundPlayer.Dispose();
+            }
 
             this.Close();
         }
@@ -95,5 +117,7 @@ namespace SpaceClient.View
             LaunchesWindow launchPage = new LaunchesWindow();
             MainFrame.Navigate(launchPage);
         }
+
+       
     }
 }

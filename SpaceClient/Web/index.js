@@ -53,7 +53,7 @@ function updateISS(lat, lng) {
     const newPos = [lat, lng];
     marker.setLatLng(newPos);
     radarCircle.setLatLng(newPos);
-    map.setView(newPos, map.getZoom());
+    //map.setView(newPos, map.getZoom());
 }
 
 const orbitPath = L.polyline([], {

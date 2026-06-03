@@ -88,14 +88,25 @@
                     <Button Content="ISS TRACKING" Style="{StaticResource NavButtonStyle}" Click="ToISS_Click"/>
                 </StackPanel>
 
-                <Button Grid.Row="2" Content="LANDING (EXIT)" Style="{StaticResource NavButtonStyle}" Click="Exit_Click" Foreground="#FFFD71CB">
-                    <Button.OpacityMask>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="Black"/>
-                            <GradientStop Color="White" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Button.OpacityMask>
-                </Button>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" Content="LANDING (EXIT)" Style="{StaticResource NavButtonStyle}" Click="Exit_Click" Foreground="#FFFD71CB" Margin="0,0,10,12">
+                        <Button.OpacityMask>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black"/>
+                                <GradientStop Color="White" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.OpacityMask>
+                    </Button>
+
+                    <Button x:Name="BtnMute" Grid.Column="1" Style="{StaticResource NavButtonStyle}" Width="50" Click="Mute_Click">
+                        <Image x:Name="MuteImage" Source="/Pictures/mute.png" Width="24" Height="24" Stretch="Uniform"/>
+                    </Button>
+                </Grid>
             </Grid>
         </Border>
 
