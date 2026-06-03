@@ -17,7 +17,7 @@ namespace SpaceClient.View
         {
             InitializeComponent();
 
-            StartBackgroundMusic();
+            //StartBackgroundMusic();
         }
 
         private void StartBackgroundMusic()

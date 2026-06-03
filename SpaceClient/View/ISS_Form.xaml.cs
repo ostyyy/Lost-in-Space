@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Globalization;     // Для правильного форматування крапки в координатах
+using System.Globalization;     
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Threading;  // Для DispatcherTimer
-using SpaceClient.Services;      // Підключаємо наш сервіс трекінгу МКС
+using System.Windows.Threading;  
+using SpaceClient.Services;      
 
 namespace SpaceClient.View
 {
@@ -22,14 +22,19 @@ namespace SpaceClient.View
         {
             try
             {
-                // 1. Чекаємо ініціалізації WebView2 движка
                 await MyWebView.EnsureCoreWebView2Async();
 
-                // 2. Вказуємо шлях до нашого index.html у папці Web
-                string htmlPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Web", "index.html");
-                MyWebView.CoreWebView2.Navigate(htmlPath);
+                string webFolder = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Web");
 
-                // 3. Запускаємо таймер оновлення (запит кожні 3 секунди)
+                MyWebView.CoreWebView2.Profile.PreferredTrackingPreventionLevel = Microsoft.Web.WebView2.Core.CoreWebView2TrackingPreventionLevel.None;
+
+                MyWebView.CoreWebView2.SetVirtualHostNameToFolderMapping(
+                    "spaceapp.local",
+                    webFolder,
+                    Microsoft.Web.WebView2.Core.CoreWebView2HostResourceAccessKind.Allow);
+
+                MyWebView.CoreWebView2.Navigate("https://spaceapp.local/index.html");
+
                 _gpsTimer = new DispatcherTimer();
                 _gpsTimer.Interval = TimeSpan.FromSeconds(3);
                 _gpsTimer.Tick += UpdateIssPositionOnMap;
@@ -43,7 +48,6 @@ namespace SpaceClient.View
 
         private async void UpdateIssPositionOnMap(object sender, EventArgs e)
         {
-            // Отримуємо координати з нашого сервісу
             var coordinates = await _issService.GetCurrentIssCoordinatesAsync();
 
             if (coordinates.HasValue)
@@ -51,18 +55,15 @@ namespace SpaceClient.View
                 double lat = coordinates.Value.lat;
                 double lng = coordinates.Value.lng;
 
-                // ЗМІНЕНО ТУТ: тепер назва чітко збігається з твоїм JS (updateISS)
                 string jsCommand = string.Format(
                     System.Globalization.CultureInfo.InvariantCulture,
                     "updateISS({0}, {1});", lat, lng
                 );
 
-                // Викликаємо функцію всередині index.js
                 await MyWebView.ExecuteScriptAsync(jsCommand);
             }
         }
 
-        // Подія спрацьовує, коли ми йдемо зі сторінки трекера в інше меню
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
             if (_gpsTimer != null)

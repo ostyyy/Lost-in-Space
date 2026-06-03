@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      Title="Space Forum" Height="650" Width="900"
+      Title="Space Forum" d:DesignHeight="650" d:DesignWidth="900"
       Background="#FF060B19">
 
     <Page.Resources>
@@ -58,7 +58,6 @@
     </Page.Resources>
 
     <Grid Margin="30">
-
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -90,7 +89,7 @@
             </Grid.ColumnDefinitions>
 
             <ListBox ItemsSource="{Binding ForumPosts}" Background="Transparent" BorderThickness="0" 
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"
                      HorizontalContentAlignment="Stretch">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
@@ -107,7 +106,7 @@
 
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border Style="{StaticResource PostCardStyle}">
+                        <Border Style="{StaticResource PostCardStyle}" HorizontalAlignment="Stretch">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -138,6 +137,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+
             <Rectangle Grid.Column="1" Width="2" Fill="#FF1E2947" HorizontalAlignment="Center" Margin="0,0,0,15"/>
 
             <Grid Grid.Column="2">
@@ -164,7 +164,7 @@
                 <StackPanel Grid.Row="1" Margin="0,0,0,20">
                     <TextBlock Text="FILTER BY TOPIC" Foreground="#FF64748B" FontFamily="Bauhaus 93" Margin="0,0,0,5"/>
                     <ComboBox Background="#FF0D162D" Foreground="White" BorderBrush="#FF3F1975" Height="35" Padding="10,5">
-                        
+
                     </ComboBox>
                 </StackPanel>
 

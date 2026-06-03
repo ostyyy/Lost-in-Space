@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpaceClient.View"
         mc:Ignorable="d"
-        Title="Space Launches Archive" Height="650" Width="900"
-        >
+        Title="Space Launches Archive" d:DesignHeight="650" d:DesignWidth="900">
 
     <Page.Resources>
         <Style x:Key="NavButtonStyle" TargetType="{x:Type Button}">
