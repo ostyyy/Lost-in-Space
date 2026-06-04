@@ -28,6 +28,13 @@ const sunIcon = L.icon({
     iconAnchor: [20, 20],
 });
 
+const moonIcon = L.icon({
+    iconUrl: 'https://cdn.pixabay.com/photo/2014/04/02/17/07/full-moon-308007_640.png',
+    iconSize: [30, 30],
+    iconAnchor: [20, 20],
+})
+
+
 // ISS
 const marker = L.marker([0, 0], { icon: issIcon }).addTo(map);
 
@@ -38,6 +45,7 @@ const radarCircle = L.circleMarker([0, 0], {
 
 // SUN
 const sunMarker = L.marker([0, 0], { icon: sunIcon }).addTo(map);
+const moonMarker = L.marker([0, 0], { icon: moonIcon }).addTo(map);
 
 const sunIconImage = sunMarker.getElement();
 if (sunIconImage) {
@@ -84,6 +92,22 @@ function updateSunPosition() {
     sunMarker.setLatLng([lat, lng]);
 }
 
+function updateMoonPosition()
+{
+    const now = new Date();
+    const moonPos = SunCalc.getMoonPosition(now, 0, 0);
+    const lat = moonPos.altitude * (100 / Math.PI);
+    const utcHours =
+        now.getUTCHours() +
+        now.getUTCMinutes() / 60 +
+        now.getUTCSeconds() / 3600;
+    let lng = 180 - utcHours * 15;
+    if (lng < -180) lng += 360;
+    if (lng > 180) lng -= 360;
+
+    moonMarker.setLatLng([lat, lng]);
+}
+
 // ISS TRACKING
 function updateISS(lat, lng) {
     const newPos = [lat, lng];
@@ -92,6 +116,7 @@ function updateISS(lat, lng) {
     //map.setView(newPos, map.getZoom());
 
     updateSunPosition();
+    updateMoonPosition();
 }
 
 const orbitPath = L.polyline([], {
@@ -110,7 +135,7 @@ async function drawFutureOrbit() {
 
         if (typeof satellite === 'undefined') {
             console.error(
-                'КРИТИЧЕСКАЯ ОШИБКА: Библиотека satellite.js не найдена!',
+                'ERROR: satellite.js not found!',
             );
             return;
         }
@@ -155,8 +180,10 @@ async function drawFutureOrbit() {
 }
 
 updateSunPosition();
+updateMoonPosition();
 drawFutureOrbit();
 
 setInterval(drawFutureOrbit, 900000);
 
 setInterval(updateSunPosition, 60000);
+setInterval(updateMoonPosition, 60000);
