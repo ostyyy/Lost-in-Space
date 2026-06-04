@@ -69,7 +69,6 @@
     <Resource Include="Pictures\Landing.png" />
     <Resource Include="Pictures\Logo.png" />
     <Resource Include="Pictures\mars.png" />
-    <Resource Include="Web\moon.png" />
     <Resource Include="Pictures\NASA.png" />
     <Resource Include="Pictures\planet.png" />
     <Resource Include="Pictures\rocket.png" />
