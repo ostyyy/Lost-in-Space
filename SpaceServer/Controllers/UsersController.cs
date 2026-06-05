@@ -56,5 +56,24 @@ namespace SpaceServer.Controllers
                 return Unauthorized(new { message = "Incorrect login or password!" });
             }
         }
+
+        [HttpPost("delete")]
+        public async Task<IActionResult> DeleteUser([FromBody] RegisterRequest request)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u =>
+                u.Login == request.Login &&
+                u.Password == request.Password);
+
+
+            if (user == null)
+            {
+                return Unauthorized("Invalid login or password.");
+            }
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return Ok($"Deleted! {request.Login}!");
+        }
     }
 }
