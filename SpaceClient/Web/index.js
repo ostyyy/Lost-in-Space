@@ -96,12 +96,12 @@ function updateMoonPosition()
 {
     const now = new Date();
     const moonPos = SunCalc.getMoonPosition(now, 0, 0);
-    const lat = moonPos.altitude * (100 / Math.PI);
+    const lat = moonPos.altitude * (180 / Math.PI);
     const utcHours =
         now.getUTCHours() +
         now.getUTCMinutes() / 60 +
         now.getUTCSeconds() / 3600;
-    let lng = 180 - utcHours * 15;
+    let lng = 180 - (utcHours * 15) - (moonPos.azimuth * (180 / Math.PI));
     if (lng < -180) lng += 360;
     if (lng > 180) lng -= 360;
 
