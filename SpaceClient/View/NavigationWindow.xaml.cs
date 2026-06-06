@@ -4,6 +4,7 @@ using System.Media;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using static System.Net.WebRequestMethods;
 
 
 namespace SpaceClient.View
@@ -20,6 +21,9 @@ namespace SpaceClient.View
             InitializeComponent();
 
             StartBackgroundMusic();
+
+            Profile profile = new Profile();
+            MainFrame.Navigate(profile);
         }
 
         private void StartBackgroundMusic()
@@ -115,6 +119,9 @@ namespace SpaceClient.View
                 _backgroundPlayer.Stop();
                 _backgroundPlayer.Dispose();
             }
+
+            LogIn loginWindow = new LogIn();
+            loginWindow.Show();
 
             this.Close();
         }
