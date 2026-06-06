@@ -21,19 +21,32 @@ namespace SpaceServer.Controllers
             public string Login { get; set; } = string.Empty;
             public string Password { get; set; } = string.Empty;
         }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
+            if (request == null || string.IsNullOrWhiteSpace(request.Login) || string.IsNullOrWhiteSpace(request.Password))
+            {
+                return BadRequest(new { message = "Login and password system fields cannot be empty!" });
+            }
+
+            bool userExists = await _context.Users.AnyAsync(u => u.Login == request.Login);
+
+            if (userExists)
+            {
+                return BadRequest(new { message = $"The login '{request.Login}' is already taken by another space traveler!" });
+            }
+
             var newUser = new User
             {
-                Login = request.Login,
-                Password = request.Password
+                Login = request.Login.Trim(),
+                Password = request.Password 
             };
 
             _context.Users.Add(newUser);
             await _context.SaveChangesAsync();
 
-            return Ok($"Added {request.Login}!");
+            return Ok(new { message = $"Added {request.Login} successfully!" });
         }
 
         [HttpPost("login")]

@@ -67,6 +67,7 @@ namespace SpaceServer.Controllers
             return Ok("Saved to DB");
         }
 
+
         [HttpGet("post/{postId}")]
         public async Task<IActionResult> GetCommentsForPost(int postId)
         {
@@ -91,19 +92,33 @@ namespace SpaceServer.Controllers
         }
 
         [HttpDelete("delete/{id}")]
-        public async Task<IActionResult> DeleteComment(int id)
+        public async Task<IActionResult> DeleteComment(int id, [FromQuery] int userId)
         {
-            var comment = await _context.Comments.FindAsync(id);
-
-            if (comment == null)
+            try
             {
-                return NotFound("Comment not found");
+                var comment = await _context.Comments.FindAsync(id);
+
+                if (comment == null)
+                {
+                    return NotFound("Comment not found.");
+                }
+
+                if (comment.AuthorID != userId)
+                {
+                    return StatusCode(403, "You can only delete your own comments.");
+                }
+
+                comment.Content = "This comment has been deleted by the user.";
+                comment.AuthorID = null;
+
+                await _context.SaveChangesAsync();
+
+                return Ok(new { message = "Comment deleted successfully." });
             }
-
-            _context.Comments.Remove(comment);
-            await _context.SaveChangesAsync();
-
-            return Ok("Comment deleted successfully");
+            catch (Exception ex)
+            {
+                return BadRequest($"Error during delete: {ex.Message}");
+            }
         }
     }
 }

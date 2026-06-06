@@ -80,8 +80,10 @@
                     </PasswordBox.Resources>
                 </PasswordBox>
 
-                <Button Content="SIGN UP" Command="{Binding RegisterCommand}" 
-                        Height="40" Foreground="White" FontSize="13" FontWeight="Bold" Cursor="Hand" Margin="0,0,0,15">
+                <Button Content="SIGN UP" 
+                    Command="{Binding RegisterCommand}" 
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                    Height="40" Foreground="White" FontSize="13" FontWeight="Bold" Cursor="Hand" Margin="0,0,0,15"> 
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="6"/>
