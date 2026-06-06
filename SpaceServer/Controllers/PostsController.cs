@@ -19,7 +19,6 @@ namespace SpaceServer.Controllers
             _context = context;
         }
 
-        // 1. Возвращаем AuthorID в запрос
         public class CreatePostRequest
         {
             public string Title { get; set; } = string.Empty;
@@ -86,6 +85,28 @@ namespace SpaceServer.Controllers
             return Ok(posts);
         }
 
+        [HttpGet("{postId}")]
+        public async Task<IActionResult> GetPostById(int postId)
+        {
+            var post = await _context.Posts
+                .Include(p => p.Topic)
+                .FirstOrDefaultAsync(p => p.ID == postId);
+
+            if (post == null)
+            {
+                return NotFound("Post not found.");
+            }
+
+            return Ok(new
+            {
+                Id = post.ID,
+                Title = post.Title,
+                Content = post.Content,
+                CreatedDate = post.CreatedDate,
+                Topic = post.Topic != null ? new { Title = post.Topic.Title } : null
+            });
+        }
+
         [HttpDelete("delete/{postId}")]
         public async Task<IActionResult> DeletePost(int postId)
         {
@@ -94,6 +115,10 @@ namespace SpaceServer.Controllers
             {
                 return NotFound("Not found.");
             }
+
+            //UPD: delete related comments
+            var relatedComments = _context.Comments.Where(c => c.PostID == postId);
+            _context.Comments.RemoveRange(relatedComments);
 
             _context.Posts.Remove(post);
             await _context.SaveChangesAsync();
