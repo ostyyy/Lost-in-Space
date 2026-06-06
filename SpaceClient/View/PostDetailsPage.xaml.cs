@@ -1,38 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using SpaceClient.ViewModels;
 using SpaceServer.Models;
 
-
 namespace SpaceClient.View
 {
-    /// <summary>
-    /// Interaction logic for PostDetailsPage.xaml
-    /// </summary>
     public partial class PostDetailsPage : Page
     {
+        private readonly PostDetailsViewModel _viewModel;
+
         public PostDetailsPage(Post selectedPost)
         {
             InitializeComponent();
 
-            TxtPostTitle.Text = selectedPost.Title;
-            TxtPostContent.Text = selectedPost.Content;
+            _viewModel = new PostDetailsViewModel(selectedPost.ID);
+            this.DataContext = _viewModel;
 
-            if (selectedPost.Topic != null)
+            TriggerDataLoading();
+        }
+
+        private async void TriggerDataLoading()
+        {
+            try
             {
-                TxtPostTopic.Text = $"Topic: {selectedPost.Topic.Title}";
+                await _viewModel.LoadPostFromServer();
+                await _viewModel.LoadCommentsFromServer();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error");
             }
         }
 

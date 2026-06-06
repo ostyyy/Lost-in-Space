@@ -4,8 +4,17 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      Title="Post Discussion" d:DesignHeight="650" d:DesignWidth="900"
+      Title="Post Discussion" d:DesignHeight="700" d:DesignWidth="900"
       Background="#FF060B19">
+
+    <Page.Resources>
+        <ControlTemplate x:Key="NeonButtonTemplate" TargetType="Button">
+            <Border Background="{TemplateBinding Background}" CornerRadius="6" 
+                    BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,5"/>
+            </Border>
+        </ControlTemplate>
+    </Page.Resources>
 
     <Grid Margin="30">
         <Grid.RowDefinitions>
@@ -14,29 +23,103 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Button Content="⬅ BACK TO FORUM" HorizontalAlignment="Left" Padding="15,8" 
+        <Button Content=" BACK TO FORUM" HorizontalAlignment="Right" Padding="15,8" 
                 FontSize="12" FontFamily="Bauhaus 93" Cursor="Hand" Click="Back_Click"
-                Background="#FF1E0F45" Foreground="#FFAECFFF" BorderBrush="#FF3F1975">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" CornerRadius="6" 
-                            BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,5"/>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
+                Background="#FF1E0F45" Foreground="#FFAECFFF" BorderBrush="#FF3F1975" FlowDirection="RightToLeft"
+                Template="{StaticResource NeonButtonTemplate}"/>
 
-        <Border Grid.Row="1" Background="#AA0D162D" BorderBrush="#FF1E2947" BorderThickness="2" CornerRadius="12" Margin="0,20,0,20" Padding="20">
+        <Border Grid.Row="1" Background="#AA0D162D" BorderBrush="#FF1E2947" BorderThickness="2" CornerRadius="12" Margin="0,20,0,10" Padding="20">
             <StackPanel>
-                <TextBlock x:Name="TxtPostTitle" Text="Post Title" Foreground="#FFAECFFF" FontSize="24" FontFamily="Bauhaus 93"/>
-                <TextBlock x:Name="TxtPostTopic" Text="Topic:" Foreground="#FF64748B" FontSize="16" FontFamily="Consolas" Margin="0,5,0,15"/>
-                <TextBlock x:Name="TxtPostContent" Text="Content..." Foreground="White" FontSize="16" TextWrapping="Wrap"/>
+                <TextBlock x:Name="TxtPostTitle" Text="{Binding PostTitle}" Foreground="#FFAECFFF" FontSize="24" FontFamily="Bauhaus 93"/>
+                <TextBlock x:Name="TxtPostTopic" Text="{Binding PostTopic}" Foreground="#FFFFD74C" FontSize="16" FontFamily="Consolas" Margin="0,5,0,15"/>
+                <TextBlock x:Name="TxtPostContent" Text="{Binding PostContent}" Foreground="White" FontSize="16" TextWrapping="Wrap"/>
             </StackPanel>
         </Border>
 
         <Grid Grid.Row="2">
-            <TextBlock Text="DISCUSSION" Foreground="#FFFD71CB" FontFamily="Bauhaus 93" FontSize="18"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="DISCUSSION" Foreground="#FFFD71CB" FontFamily="Bauhaus 93" FontSize="18" Margin="0,0,0,10"/>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,15">
+                <ItemsControl x:Name="CommentsItemsControl" ItemsSource="{Binding Comments}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#0AFFFFFF" BorderBrush="#FF1E2947" BorderThickness="1" 
+                                    CornerRadius="8" Margin="{Binding LeftMargin}" Padding="15,10" Name="CommentBorder">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Orientation="Horizontal" Grid.Column="0">
+                                        <TextBlock Text="{Binding AuthorName}" Foreground="#FF26E6FF" FontWeight="Bold" FontSize="14" FontFamily="Consolas"/>
+                                        <TextBlock Text=" • " Foreground="#44FFFFFF"/>
+                                        <TextBlock Text="{Binding CreatedDate}" Foreground="#66FFFFFF" FontSize="12"/>
+                                    </StackPanel>
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Content}" Foreground="White" FontSize="14" Margin="0,5,0,0" TextWrapping="Wrap"/>
+
+                                    <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Content="REPLY" 
+                                            Background="#00000000" Foreground="#FFFD71CB" BorderBrush="#FFFD71CB"
+                                            FontFamily="Consolas" FontSize="11" Padding="8,4" Cursor="Hand"
+                                            VerticalAlignment="Center"
+                                            Command="{Binding DataContext.ReplyCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                                            CommandParameter="{Binding Id}">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="4">
+                                                    <ContentPresenter Margin="5,2"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <Grid Grid.Row="2" Background="#FF0D162D">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel x:Name="ReplyIndicatorPanel" Orientation="Horizontal" Visibility="{Binding ReplyIndicatorVisibility}" Margin="5,5,5,10">
+                    <TextBlock Text="Replying to comment... " Foreground="#FFFFD74C" FontSize="12" FontFamily="Consolas" VerticalAlignment="Center"/>
+                    <Button Content="Cancel" Foreground="#FFFD71CB" Background="Transparent" BorderThickness="1,1,1,1" Cursor="Hand" 
+                            Command="{Binding CancelReplyCommand}" BorderBrush="#FFFF44C4" Margin="4,4,4,4" IsTabStop="False" Padding="3,3,3,3"/>
+                </StackPanel>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox x:Name="TxtCommentInput" Background="#FF131C38" Foreground="White" BorderBrush="#FF25315B" 
+                             CaretBrush="White" FontSize="14" Padding="10" Height="45" VerticalContentAlignment="Center"
+                             Text="{Binding CommentInputText, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Button Grid.Column="1" Content="SEND" Width="100" Margin="10,0,0,0"
+                            Background="#FF1E0F45" Foreground="#FFFD71CB" BorderBrush="#FFFD71CB"
+                            FontFamily="Bauhaus 93" FontSize="14" Cursor="Hand" 
+                            Command="{Binding SendCommentCommand}"
+                            Template="{StaticResource NeonButtonTemplate}"/>
+                </Grid>
+            </Grid>
+
         </Grid>
     </Grid>
 </Page>
