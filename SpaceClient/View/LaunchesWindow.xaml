@@ -107,7 +107,7 @@
 
         <StackPanel Grid.Row="0" Margin="0,0,0,20">
             <TextBlock Text="SPACE LAUNCHES ARCHIVE" Foreground="#FFFD71CB" 
-                       FontSize="28" FontFamily="Bauhaus 93" Margin="0,0,0,15">
+                       FontSize="28" FontFamily="Bauhaus 93" Margin="0,0,0,15" HorizontalAlignment="Center">
                 <TextBlock.Effect>
                     <DropShadowEffect Color="#FFFD71CB" BlurRadius="10" ShadowDepth="0"/>
                 </TextBlock.Effect>

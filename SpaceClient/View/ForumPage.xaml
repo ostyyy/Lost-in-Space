@@ -75,7 +75,7 @@
         </Image>
 
         <TextBlock Text="INTERGALACTIC FORUM" Foreground="#FFFD71CB" 
-                   FontSize="28" FontFamily="Bauhaus 93" Margin="0,0,0,20">
+                   FontSize="28" FontFamily="Bauhaus 93" Margin="0,0,0,20" HorizontalAlignment="Center">
             <TextBlock.Effect>
                 <DropShadowEffect Color="#FFFD71CB" BlurRadius="10" ShadowDepth="0"/>
             </TextBlock.Effect>

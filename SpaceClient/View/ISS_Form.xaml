@@ -25,13 +25,13 @@
 
         <StackPanel Grid.Row="0" Margin="0,0,0,15">
             <TextBlock Text="ISS ORBITAL TRACKER" Foreground="#FFFD71CB" 
-                       FontSize="24" FontFamily="Bauhaus 93" Margin="0,0,0,5">
+                       FontSize="24" FontFamily="Bauhaus 93" Margin="0,0,0,5" HorizontalAlignment="Center">
                 <TextBlock.Effect>
                     <DropShadowEffect Color="#FFFD71CB" BlurRadius="10" ShadowDepth="0"/>
                 </TextBlock.Effect>
             </TextBlock>
             <TextBlock Text="REAL-TIME TELEMETRY SENSOR" Foreground="#FFAECFFF" 
-                       FontSize="13" FontFamily="Consolas" Opacity="0.7"/>
+                       FontSize="13" FontFamily="Consolas" Opacity="0.7" HorizontalAlignment="Center"/>
         </StackPanel>
 
         <Grid Grid.Row="1">
