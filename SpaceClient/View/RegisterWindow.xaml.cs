@@ -30,6 +30,8 @@ namespace SpaceClient.View
             if (DataContext is RegisterViewModel viewModel)
             {
                 viewModel.Password = ((PasswordBox)sender).Password;
+
+                CommandManager.InvalidateRequerySuggested();
             }
         }
 
@@ -38,6 +40,8 @@ namespace SpaceClient.View
             if (DataContext is RegisterViewModel viewModel)
             {
                 viewModel.ConfirmPassword = ((PasswordBox)sender).Password;
+
+                CommandManager.InvalidateRequerySuggested();
             }
         }
     }
