@@ -27,6 +27,12 @@ namespace SpaceServer.Data
             modelBuilder.Entity<APOD>()
                 .HasIndex(img => img.Date)
                 .IsUnique();
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.ParentComment)
+                .WithMany(c => c.Replies)
+                .HasForeignKey(c => c.ParentCommentID)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
