@@ -12,7 +12,7 @@ namespace SpaceServer.Models
         public string Title { get; set; } = string.Empty;
 
         [Column("authorid")]
-        public int AuthorID { get; set; }
+        public int? AuthorID { get; set; }
 
         public User? Author { get; set; }
 
