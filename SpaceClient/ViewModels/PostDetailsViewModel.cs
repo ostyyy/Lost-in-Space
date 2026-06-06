@@ -59,6 +59,7 @@ namespace SpaceClient.ViewModels
         [JsonPropertyName("createdDate")]
         public DateTime createdDate { get; set; }
     }
+
     public class PostDetailsViewModel : INotifyPropertyChanged
     {
         private readonly HttpClient _httpClient = new HttpClient();
@@ -113,6 +114,8 @@ namespace SpaceClient.ViewModels
         public ICommand ReplyCommand { get; }
         public ICommand CancelReplyCommand { get; }
 
+        public ICommand DeleteCommentCommand { get; }
+
         public PostDetailsViewModel(int postId)
         {
             _postId = postId;
@@ -126,6 +129,8 @@ namespace SpaceClient.ViewModels
             SendCommentCommand = new RelayCommand(async (obj) => await SendNewComment());
             ReplyCommand = new RelayCommand((param) => ExecuteReply(param));
             CancelReplyCommand = new RelayCommand((obj) => ExecuteCancelReply());
+
+            DeleteCommentCommand = new RelayCommand(async (param) => await ExecuteDeleteComment(param));
         }
 
         public async Task LoadPostFromServer()
@@ -220,7 +225,7 @@ namespace SpaceClient.ViewModels
                 {
                     CommentInputText = string.Empty;
                     ExecuteCancelReply();
-                    await LoadCommentsFromServer(); 
+                    await LoadCommentsFromServer();
                 }
                 else
                 {
@@ -231,6 +236,37 @@ namespace SpaceClient.ViewModels
             catch (Exception ex)
             {
                 MessageBox.Show($"Error sending comment: {ex.Message}", "Transmission Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async Task ExecuteDeleteComment(object parameter)
+        {
+            if (parameter is int commentId)
+            {
+                var result = MessageBox.Show("Are you sure you want to delete this comment?", "Confirmation",
+                                             MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        var response = await _httpClient.DeleteAsync($"{_baseUrl}/api/comments/delete/{commentId}?userId={App.CurrentUserId}");
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            await LoadCommentsFromServer();
+                        }
+                        else
+                        {
+                            string error = await response.Content.ReadAsStringAsync();
+                            MessageBox.Show($"Could not delete comment: {error}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Connection error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
             }
         }
 
@@ -263,14 +299,34 @@ namespace SpaceClient.ViewModels
         public string AuthorName { get; set; } = string.Empty;
         public string CreatedDate { get; set; } = string.Empty;
         public Thickness LeftMargin { get; set; }
+        public Visibility DeleteButtonVisibility { get; set; }
 
         public CommentDisplayWrapper(ServerCommentResponse comment, double indent)
         {
             Id = comment.id;
-            Content = comment.content;
-            AuthorName = comment.authorName;
-            CreatedDate = comment.createdDate.ToLocalTime().ToString("dd.MM.yyyy HH:mm");
             LeftMargin = new Thickness(indent, 6, 0, 6);
+            CreatedDate = comment.createdDate.ToLocalTime().ToString("dd.MM.yyyy HH:mm");
+
+            if (comment.authorID == null || comment.content == "This comment has been deleted by the user.")
+            {
+                Content = "This comment has been deleted by the user.";
+                AuthorName = "[deleted]";
+                DeleteButtonVisibility = Visibility.Collapsed;
+            }
+            else
+            {
+                Content = comment.content;
+                AuthorName = comment.authorName;
+
+                if (comment.authorID == App.CurrentUserId)
+                {
+                    DeleteButtonVisibility = Visibility.Visible;
+                }
+                else
+                {
+                    DeleteButtonVisibility = Visibility.Collapsed;
+                }
+            }
         }
     }
 
