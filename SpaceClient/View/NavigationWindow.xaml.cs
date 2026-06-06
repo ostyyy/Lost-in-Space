@@ -81,6 +81,13 @@ namespace SpaceClient.View
 
         private void ToProfile_Click(object sender, RoutedEventArgs e)
         {
+            if (App.CurrentUserLogin == null)
+            {
+                MessageBox.Show("You must be authorized first!");
+                return;
+            }
+            Profile profile = new Profile();
+            MainFrame.Navigate(profile);
         }
 
         private void ToForum_Click(object sender, RoutedEventArgs e)

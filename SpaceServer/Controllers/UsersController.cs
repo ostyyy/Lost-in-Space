@@ -57,7 +57,7 @@ namespace SpaceServer.Controllers
             }
         }
 
-        [HttpPost("delete")]
+        [HttpDelete("delete")]
         public async Task<IActionResult> DeleteUser([FromBody] RegisterRequest request)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u =>

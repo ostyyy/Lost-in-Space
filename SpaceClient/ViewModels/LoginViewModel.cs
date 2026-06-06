@@ -90,6 +90,8 @@ namespace SpaceClient.ViewModels
 
                     string responseData = await response.Content.ReadAsStringAsync();
 
+                    App.CurrentPassword = password;
+
                     using (JsonDocument doc = JsonDocument.Parse(responseData))
                     {
                         JsonElement root = doc.RootElement;

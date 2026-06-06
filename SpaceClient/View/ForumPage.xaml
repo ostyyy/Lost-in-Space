@@ -117,8 +117,16 @@
                                 <TextBlock Text="{Binding Title}" 
                                            Foreground="#FFAECFFF" FontSize="20" FontFamily="Bauhaus 93"/>
 
-                                <TextBlock Grid.Row="1" Text="{Binding Topic.Title, StringFormat='Theme: {0}'}" 
-                                           Foreground="#FF64748B" FontSize="12" FontFamily="Consolas" Margin="0,5,0,15"/>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,5,0,15">
+                                    <TextBlock Text="{Binding Topic.Title, StringFormat='Theme: {0}'}" 
+                                               Foreground="#FF64748B" FontSize="12" FontFamily="Consolas"/>
+
+                                    <TextBlock Text="  |  " 
+                                               Foreground="#FF1E2947" FontSize="12" FontFamily="Consolas" FontWeight="Bold"/>
+
+                                    <TextBlock Text="{Binding Author.Login, StringFormat='Author: {0}'}" 
+                                               Foreground="#FFFD71CB" FontSize="12" FontFamily="Consolas"/>
+                                </StackPanel>
 
                                 <TextBlock Grid.Row="2" Text="{Binding Content}" 
                                            Foreground="White" FontSize="14" TextWrapping="Wrap" MaxHeight="60" TextTrimming="CharacterEllipsis" Margin="0,0,40,0"/>

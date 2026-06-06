@@ -13,6 +13,8 @@ namespace SpaceClient
 
         public static int CurrentUserId { get; set; }
 
+        public static string CurrentPassword { get; set; } = string.Empty;
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
