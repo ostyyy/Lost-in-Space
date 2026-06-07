@@ -77,31 +77,27 @@ function focusOnIss() {
 function updateSunPosition() {
     const now = new Date();
 
-    const sunPos = SunCalc.getPosition(now, 0, 0);
+    const sunPos = SunCalc.getPosition(now, 90, 0);
 
     const lat = sunPos.altitude * (180 / Math.PI);
 
-    const utcHours =
-        now.getUTCHours() +
-        now.getUTCMinutes() / 60 +
-        now.getUTCSeconds() / 3600;
-    let lng = 180 - utcHours * 15;
+    let lng = -sunPos.azimuth * (180 / Math.PI);
+
     if (lng < -180) lng += 360;
     if (lng > 180) lng -= 360;
 
     sunMarker.setLatLng([lat, lng]);
 }
 
-function updateMoonPosition()
-{
+function updateMoonPosition() {
     const now = new Date();
-    const moonPos = SunCalc.getMoonPosition(now, 0, 0);
+
+
+    const moonPos = SunCalc.getMoonPosition(now, 90, 0);
+
     const lat = moonPos.altitude * (180 / Math.PI);
-    const utcHours =
-        now.getUTCHours() +
-        now.getUTCMinutes() / 60 +
-        now.getUTCSeconds() / 3600;
-    let lng = 180 - (utcHours * 15) - (moonPos.azimuth * (180 / Math.PI));
+    let lng = -moonPos.azimuth * (180 / Math.PI);
+
     if (lng < -180) lng += 360;
     if (lng > 180) lng -= 360;
 

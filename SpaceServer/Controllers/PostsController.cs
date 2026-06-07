@@ -71,6 +71,7 @@ namespace SpaceServer.Controllers
         {
             var posts = await _context.Posts
                 .Include(p => p.Topic)
+                .Include(p => p.Author)
                 .OrderByDescending(p => p.CreatedDate)
                 .Select(p => new
                 {
@@ -78,7 +79,8 @@ namespace SpaceServer.Controllers
                     Title = p.Title,
                     Content = p.Content,
                     CreatedDate = p.CreatedDate,
-                    Topic = new { Title = p.Topic.Title } 
+                    Topic = new { Title = p.Topic.Title }, 
+                    Author = new { Login = p.Author.Login}
                 })
                 .ToListAsync();
 
@@ -90,6 +92,7 @@ namespace SpaceServer.Controllers
         {
             var post = await _context.Posts
                 .Include(p => p.Topic)
+                .Include(p => p.Author)
                 .FirstOrDefaultAsync(p => p.ID == postId);
 
             if (post == null)
@@ -103,7 +106,8 @@ namespace SpaceServer.Controllers
                 Title = post.Title,
                 Content = post.Content,
                 CreatedDate = post.CreatedDate,
-                Topic = post.Topic != null ? new { Title = post.Topic.Title } : null
+                Topic = post.Topic != null ? new { Title = post.Topic.Title } : null,
+                Author = post.Author != null ? new { Login = post.Author.Login } : null
             });
         }
 
