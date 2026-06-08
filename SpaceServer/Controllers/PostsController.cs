@@ -129,5 +129,33 @@ namespace SpaceServer.Controllers
 
             return Ok("Deleted!");
         }
+
+        [HttpGet("user/{login}")]
+        public async Task<IActionResult> GetPostsByUser(string login)
+        {
+            try
+            {
+                var userPosts = await _context.Posts
+                    .Include(p => p.Topic)   
+                    .Include(p => p.Author)  
+                    .Where(p => p.Author.Login.ToLower() == login.ToLower()) 
+                    .OrderByDescending(p => p.CreatedDate) 
+                    .Select(p => new
+                    {
+                        Id = p.ID,
+                        Title = p.Title,
+                        Content = p.Content,
+                        CreatedDate = p.CreatedDate,
+                        Topic = p.Topic != null ? new { Title = p.Topic.Title } : null
+                    })
+                    .ToListAsync();
+
+                return Ok(userPosts);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }
