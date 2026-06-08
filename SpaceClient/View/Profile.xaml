@@ -75,9 +75,8 @@
             <TextBlock Text="MY POSTS" Foreground="#FF64748B" FontFamily="Bauhaus 93" FontSize="20" Margin="0,0,0,10" HorizontalAlignment="Center"/>
 
             <Border Grid.Row="1" Background="#AA0D162D" BorderBrush="#FF1E2947" BorderThickness="2" CornerRadius="12" Padding="20" MaxWidth="700">
-
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
+                    <StackPanel x:Name="PostsContainer">
                     </StackPanel>
                 </ScrollViewer>
             </Border>
@@ -85,6 +84,5 @@
 
         <Button Grid.Row="2" x:Name="DeleteAccountBtn" Content="DELETE ACCOUNT" Style="{StaticResource DangerButtonStyle}" 
                 HorizontalAlignment="Center" Height="50" Width="200" Click="DeleteAccountBtn_Click"/>
-
     </Grid>
 </Page>
