@@ -16,7 +16,7 @@
                        HorizontalAlignment="Center" FontWeight="Bold"/>
 
             <TextBlock Text="{Binding Date, TargetNullValue='--.--.----'}" 
-                       Foreground="#FF64748B" FontSize="13" FontFamily="Consolas" 
+                       Foreground="#FF64748B" FontSize="16" FontFamily="Consolas" 
                        HorizontalAlignment="Center" Margin="0,5,0,0"/>
         </StackPanel>
 
@@ -28,24 +28,24 @@
             <DatePicker SelectedDate="{Binding DpEnd, Mode=TwoWay}" Width="120" Height="30" VerticalAlignment="Center" Background="#FF0D162D" BorderBrush="#FF24335E"/>
 
             <Button Content="SEARCH" Command="{Binding SearchRangeCommand}" Width="100" Height="30" Margin="15,0,5,0" 
-                    Background="#FF0D162D" Foreground="White" BorderBrush="#FF24335E"
-                    FontFamily="Consolas" FontSize="11" FontWeight="Bold" Cursor="Hand"/>
+                    Background="#FF0D162D" Foreground="#FFC8FF6C" BorderBrush="#FF24335E"
+                    FontFamily="Consolas" FontSize="14" FontWeight="Bold" Cursor="Hand"/>
 
             <Button Content="RANDOM" Command="{Binding RandomCommand}" Width="80" Height="30" Margin="5,0,5,0" 
-                    Background="#FF0D162D" Foreground="White" BorderBrush="#FF24335E"
-                    FontFamily="Consolas" FontSize="11" FontWeight="Bold" Cursor="Hand"/>
+                    Background="#FF0D162D" Foreground="#FFFFC153" BorderBrush="#FF24335E"
+                    FontFamily="Consolas" FontSize="14" FontWeight="Bold" Cursor="Hand"/>
 
-            <Button Content="📁 MY ARCHIVE" Command="{Binding OpenArchiveCommand}" Width="110" Height="30" Margin="5,0,15,0" 
+            <Button Content="MY ARCHIVE" Command="{Binding OpenArchiveCommand}" Width="110" Height="30" Margin="5,0,15,0" 
                     Background="#FF0D162D" Foreground="#FFCA81F5" BorderBrush="#FF24335E"
-                    FontFamily="Consolas" FontSize="11" FontWeight="Bold" Cursor="Hand"/>
+                    FontFamily="Consolas" FontSize="14" FontWeight="Bold" Cursor="Hand"/>
 
             <Button Content="◀" Command="{Binding PrevCommand}" IsEnabled="{Binding IsPrevEnabled}" Width="35" Height="30" Margin="5,0"
-                    Background="#FF0D162D" Foreground="White" BorderBrush="#FF24335E" FontFamily="Consolas"/>
+                    Background="#FF0D162D" Foreground="#FFE3FBFF" BorderBrush="#FF24335E" FontFamily="Consolas"/>
 
             <TextBlock Text="{Binding PagesText, TargetNullValue='0/0'}" Foreground="#FFAECFFF" FontFamily="Consolas" VerticalAlignment="Center" Margin="5,0"/>
 
             <Button Content="▶" Command="{Binding NextCommand}" IsEnabled="{Binding IsNextEnabled}" Width="35" Height="30" Margin="5,0"
-                    Background="#FF0D162D" Foreground="White" BorderBrush="#FF24335E" FontFamily="Consolas"/>
+                    Background="#FF0D162D" Foreground="#FFE3FBFF" BorderBrush="#FF24335E" FontFamily="Consolas"/>
         </StackPanel>
 
         <Grid Grid.Row="2">
@@ -88,7 +88,7 @@
                         </StackPanel>
                     </ScrollViewer>
 
-                    <Button Grid.Row="1" Content="💾 SAVE TO LOG" Command="{Binding SaveToArchiveCommand}" Height="35" 
+                    <Button Grid.Row="1" Content="SAVE TO LOG" Command="{Binding SaveToArchiveCommand}" Height="35" 
                             Background="#FF0D162D" Foreground="#FFFD71CB" BorderBrush="#FF24335E"
                             FontFamily="Consolas" FontSize="12" FontWeight="Bold" Cursor="Hand"/>
                 </Grid>
