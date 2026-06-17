@@ -69,7 +69,7 @@
                         </TextBlock.Style>
                     </TextBlock>
 
-                    <Image Source="{Binding ImageURL}" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <Image Source="{Binding ImageURL}" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
                 </Grid>
             </Border>
 

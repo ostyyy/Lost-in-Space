@@ -65,7 +65,7 @@ namespace SpaceClient.ViewModel
             _serverClient.BaseAddress = new Uri(baseUrl);
 
             SearchRangeCommand = new RelayCommand(ExecuteSearchRange);
-            RandomCommand = new RelayCommand(() => LoadNasaData("&count=3"));
+            RandomCommand = new RelayCommand(() => LoadNasaData("&count=5"));
             PrevCommand = new RelayCommand(ExecutePrev);
             NextCommand = new RelayCommand(ExecuteNext);
             SaveToArchiveCommand = new RelayCommand(async () => await SaveToArchiveAsync());
